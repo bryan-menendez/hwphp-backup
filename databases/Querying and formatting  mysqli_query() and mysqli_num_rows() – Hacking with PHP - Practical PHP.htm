@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="description" content="Free PHP tutorials by example">
+    <meta name="keywords" content="php, mysql, apache, tutorial, book, practical, php">
+    <meta name="author" content="Paul Hudson">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- SITE TITLE -->
+    <title>Querying and formatting: mysqli_query() and mysqli_num_rows() –&nbsp;Hacking with PHP - Practical PHP</title>
+    
+    <!-- =========================
+     FAV AND TOUCH ICONS AND FONT  
+    ============================== -->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://www.hackingwithphp.com/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="http://www.hackingwithphp.com/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="http://www.hackingwithphp.com/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="http://www.hackingwithphp.com/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="http://www.hackingwithphp.com/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="http://www.hackingwithphp.com/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="http://www.hackingwithphp.com/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="http://www.hackingwithphp.com/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="http://www.hackingwithphp.com/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="http://www.hackingwithphp.com/manifest.json">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    
+    <link href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/css.css" rel="stylesheet">
+
+    <link rel="canonical" href="http://www.hackingwithphp.com/9/4/2/querying-and-formatting">
+    
+    <!-- =========================
+     STYLESHEETS   
+    ============================== -->
+    <!-- BOOTSTRAP AND ANIMATION -->
+    <link rel="stylesheet" href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/bootstrap.css">
+    <link rel="stylesheet" href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/animate.css">
+    
+    <!-- FONT ICONS -->
+    <link rel="stylesheet" href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/icons.css">
+    
+    <!-- CAROUSEL AND LIGHTBOX -->
+    <link rel="stylesheet" href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/owl_002.css">
+    <link rel="stylesheet" href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/owl.css">
+    <link rel="stylesheet" href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/nivo-lightbox.css">
+    <link rel="stylesheet" href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/default.css">
+    
+    <!-- CUSTOM STYLESHEETS -->
+    <link rel="stylesheet" href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/styles.css">
+    <link rel="stylesheet" href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/highlight.css">
+    
+    <!-- RESPONSIVE FIXES -->
+    <link rel="stylesheet" href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/responsive.css">
+    
+    <!-- COLORS -->
+    <link rel="stylesheet" href="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/blue.css">
+    <!-- DEFAULT COLOR/ CURRENTLY USING -->
+    <!-- <link rel="stylesheet" href="css/colors/red.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/green.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/green2.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/purple.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/orange.css"> -->
+    
+    <!--[if lt IE 9]>
+			<script src="/js/html5shiv.min.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]>
+      <style type="text/css">
+        .standard-button,
+        .navbar-register-button {
+       filter: none;
+        }
+      </style>
+    <![endif]-->
+    <!-- ****************
+      After neccessary customization/modification, Please minify HTML/CSS according to http://browserdiet.com/en/ for better performance
+     **************** -->
+
+     <style>
+        ul li {
+            list-style: disc;
+        }
+
+        ol li {
+            list-style: inherit;
+        }
+
+        ul, ol {
+            padding-left: 60px!important;
+        }
+
+        a.offset-anchor {
+            display: block; position: relative; top: -40px; visibility: hidden;
+        }
+
+        h2.spaced, p.spaced {
+            margin-top: 40px;
+        }
+
+        div.funcprototypes {
+            background-color: #f7f7f7;
+            border: 1px dashed #e0e0e0;
+            padding: 10px;
+            margin-bottom: 30px;
+        }
+
+        div.funcprototypes p {
+            margin-bottom: 0;
+        }
+
+
+
+        div.computeroutput  {
+            background-color: #fffff2;
+            padding: 10px;
+            border: 1px solid #e5e5c0;
+            margin: 5px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        div.computeroutput code {
+            padding: 0;
+        }
+
+        div.caution     {
+            background-color: #ffeeee; 
+            padding: 10px; 
+            border: 1px dashed #ffaaaa; 
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        div.caution p:last-child {
+            margin-bottom: 0;
+        }
+
+        p.funcprototype     {
+            margin: 0;
+        }
+
+        table.bodytext  {
+            border: 1px solid #AAAAAA!important;
+            border-spacing: 0;
+            border-collapse: collapse!important;
+            margin-bottom: 40px;
+        }
+
+        table.bodytext  td {
+            border: 1px solid #AAAAAA!important;
+            padding: 10px;
+        }
+
+
+        div.tight   p {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        div.tight   {
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            margin-top: 40px;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+        }
+
+        code {
+            color: black;
+            background-color: transparent;
+        }
+
+        img {
+            border: 1px solid black;
+            margin: 20px;
+            max-width: 95%;
+        }
+
+        div.warning {
+            border: 1px dashed red;
+            background-color: rgba(255, 0, 0, 0.05);
+            padding: 20px;
+            margin: 20px;
+            border-radius: 15px;
+        }
+
+        div.warning h2 {
+            font-size: 150%;
+            line-height: 100%;
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        div.warning p {
+            line-height: 100%;
+            margin: 0;
+        }
+
+        pre {
+            margin-bottom: 30px;
+            overflow-x: auto;
+            word-wrap: normal;
+        }
+
+        pre code {
+            white-space: pre;            
+        }
+
+        td p {
+            margin: auto;
+        }
+     </style>
+
+<script charset="utf-8" src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/button.js"></script></head>
+
+<body>
+        
+    <!-- =========================
+     SECTION: HOME / HEADER  
+    ============================== -->
+
+
+            <!-- STICKY NAVIGATION -->
+            <div class="navbar navbar-inverse bs-docs-nav navbar-fixed-top sticky-navigation" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <!-- LOGO -->
+                        <a class="navbar-brand" href="http://www.hackingwithphp.com/">
+                            <p class="lead" style="margin-top: 5px; color: #999999;"><strong>Hacking with PHP</strong></p>
+                        </a>
+                    </div>
+
+                    <div class="navbar-collapse collapse" id="stamp-navigation">
+                        <ul class="nav navbar-nav navbar-right login-register small-text">
+                            <li class="register-button js-register inpage-scroll"><p class="lead" style="margin-top: 5px;">Querying and formatting</p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /END STICKY NAVIGATION -->
+
+
+    <section id="latestTutorial" class="navbar-fixed-top">
+        <div class="container" style="background-color: firebrick; margin: 0; width: 100%;">
+            <p class="lead" style="margin-top: 5px; margin: 6px; color: white;"><a href="https://gum.co/hwp-book-pack" style="color: white;">Hacking with PHP has been <strong><u>updated for PHP 7</u></strong> - only $20! &gt;&gt;</a>
+</p>
+        </div>
+    </section>
+
+    <section style="margin-top: 120px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1" style="text-align: left;"></div>
+                <div class="col-md-10" style="text-align: left;"> 
+
+
+
+
+<h1>Querying and formatting</h1><div class="funcprototypes">
+  <p class="funcprototype">
+    resource <strong>mysqli_query</strong> ( resource <em>link_identifier</em>, string <em>query</em> [, int <em>mode</em> = MYSQLI_STORE_RESULT])
+  </p>
+  <p class="funcprototype">
+    int <strong>mysqli_num_rows</strong> ( [resource <em>result</em>])
+  </p>
+</div>
+<p>
+  The majority of your interaction with MySQL in PHP will be done using the <em>mysqli_query()</em>
+ function, which takes at least two parameters: the database connection 
+you want to query, and the SQL query you want to perform. It will then 
+perform that query and return a special resource known as a MySQL result
+ index, which contains all the rows that matched your query.
+</p>
+<p>
+  This result index resource is the return value of <em>mysqli_query()</em>,
+ and you should save it in a variable for later use - whenever you want 
+to extract rows from the results, count the number of rows, etc, you 
+need to use this value.
+</p>
+<p>
+  One other key function is <em>mysqli_num_rows()</em>, which takes a 
+MySQL result index as its parameter, and returns the number of rows 
+inside that result - this is the number of rows that matched the query 
+you sent in <em>mysqli_query()</em>. With the two together we can write our first database enabled script:
+</p>
+<pre><code class="php hljs"><span class="hljs-preprocessor">&lt;?php</span>
+    <span class="hljs-variable">$db</span> = mysqli_connect(<span class="hljs-string">"localhost"</span>, <span class="hljs-string">"phpuser"</span>, <span class="hljs-string">"alm65z"</span>, <span class="hljs-string">"phpdb"</span>);
+    <span class="hljs-variable">$result</span> = mysqli_query(<span class="hljs-variable">$db</span>, <span class="hljs-string">"SELECT * FROM usertable"</span>);
+    <span class="hljs-variable">$numrows</span> = mysqli_num_rows(<span class="hljs-variable">$result</span>);
+    <span class="hljs-keyword">print</span> <span class="hljs-string">"There are $numrows people in usertable\n"</span>;
+<span class="hljs-preprocessor">?&gt;</span>
+</code></pre>
+<p>
+  As you can see, we capture the return value of <em>mysqli_query()</em> inside <font color="#0000BB">$result</font>,
+ then use on the very next line - this MySQL result index is used quite 
+heavily, so it is important to keep track of it. The exception to this 
+is when you are executing a write query in MySQL - you might not want to
+ know the result.
+</p>
+<p>
+  One helpful feature of <em>mysqli_query()</em> is that it will return 
+false if the query is syntactically invalid - that is, if you have used a
+ bad query. This means that very often it is helpful to check the return
+ value even if you are writing data - if the data was not written 
+successfully, <em>mysqli_query()</em> will tell you so with the return value.
+</p><p>&nbsp;</p>
+<div style="text-align: center">
+
+<div style="max-width: 80%; margin: auto; margin-top: 50px; margin-bottom: 50px;">
+    <p class="lead" style="margin-bottom: 0;" align="center"><strong>Want to learn PHP 7?</strong></p>
+    <p class="lead" align="center">Hacking with PHP has been fully updated for PHP 7, and is now available as a downloadable PDF. Get <strong>over 1200 pages</strong> of hands-on PHP learning today!</p>
+    <p align="center"><input type="button" class="btn btn-lg btn-success" onclick="location.href='https://gum.co/hwp-book-pack';" value="Buy now for only $20!"></p>
+</div>
+
+
+<p align="center">If this was helpful, please take a moment to tell others about Hacking with PHP by tweeting about it!</p>
+
+<p style="margin-bottom: 30px;" align="center"><iframe id="twitter-widget-0" scrolling="no" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 74px; height: 28px;" title="Twitter Tweet Button" src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/tweet_button.htm" data-url="http://www.hackingwithphp.com/9/4/2/querying-and-formatting" frameborder="0"></iframe><script async="" src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/analytics.js"></script><script id="twitter-wjs" src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/widgets.js"></script><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+
+<p><strong>Next chapter: <a href="http://www.hackingwithphp.com/9/4/3/disconnecting-from-a-mysql-database">Disconnecting from a MySQL database &gt;&gt;</a></strong></p><p>Previous chapter: <a href="http://www.hackingwithphp.com/9/4/1/connecting-to-a-mysql-database">Connecting to a MySQL database</a></p><p>Jump to: <select name="related" id="JumpTo" class="form-control" style="display: inline; width: auto"><option value="9/0/0/databases">Databases</option><option value="9/1/0/introduction">&nbsp;&nbsp;&nbsp;Introduction</option><option value="9/1/1/database-hierarchy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Database hierarchy</option><option value="9/1/2/types-of-data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Types of data</option><option value="9/1/3/date-and-time">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date and time</option><option value="9/1/4/transactions">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Transactions</option><option value="9/1/5/stored-procedures">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stored procedures</option><option value="9/1/6/triggers">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Triggers</option><option value="9/1/7/views">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Views</option><option value="9/1/8/keys">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keys</option><option value="9/1/9/referential-integrity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Referential integrity</option><option value="9/1/10/indexes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Indexes</option><option value="9/1/11/persistent-connections">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Persistent connections</option><option value="9/1/12/temporary-tables">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Temporary Tables</option><option value="9/1/13/table-handlers">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Table handlers</option><option value="9/1/14/round-up">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Round up</option><option value="9/2/0/history">&nbsp;&nbsp;&nbsp;History</option><option value="9/2/1/mysql">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MySQL</option><option value="9/2/2/postgresql">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PostgreSQL</option><option value="9/2/3/oracle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oracle</option><option value="9/2/4/microsoft-sql-server">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Microsoft SQL Server</option><option value="9/3/0/sql">&nbsp;&nbsp;&nbsp;SQL</option><option value="9/3/1/sql-comments">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL comments</option><option value="9/3/2/interacting-with-mysql">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interacting with MySQL</option><option value="9/3/3/creating-tables">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creating tables</option><option value="9/3/4/making-table-changes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Making table changes</option><option value="9/3/5/deleting-tables">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deleting tables</option><option value="9/3/6/inserting-data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inserting data</option><option value="9/3/7/selecting-data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Selecting data</option><option value="9/3/8/extra-select-keywords">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extra SELECT keywords</option><option value="9/3/9/updating-data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Updating data</option><option value="9/3/10/deleting-data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deleting data</option><option value="9/3/11/mysql-for-dummies">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MySQL for dummies</option><option value="9/3/12/a-working-example">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A working example</option><option value="9/3/13/multiple-where-conditions">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multiple WHERE conditions</option><option value="9/3/14/grouping-rows-together-with-group-by">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grouping rows together with GROUP BY</option><option value="9/3/15/mysql-functions">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MySQL functions</option><option value="9/3/16/managing-indexes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Managing indexes</option><option value="9/3/17/simple-text-searching-using-like">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Simple text searching using LIKE</option><option value="9/3/18/advanced-text-searching-using-full-text-indexes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Advanced text searching using full-text indexes</option><option value="9/3/19/range-matching-between-and-in">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Range matching</option><option value="9/3/20/working-with-null">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Working with NULL</option><option value="9/3/21/default-values">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default values</option><option value="9/4/0/using-mysql-with-php">&nbsp;&nbsp;&nbsp;Using MySQL with PHP</option><option value="9/4/1/connecting-to-a-mysql-database-mysqli_connect">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Connecting to a MySQL database</option><option selected="selected" style="font-weight: bold;" value="9/4/2/querying-and-formatting-mysqli_query-and-mysqli_num_rows">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Querying and formatting</option><option value="9/4/3/disconnecting-from-a-mysql-database-mysqli_free_result-and-mysql">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnecting from a MySQL database</option><option value="9/4/4/reading-in-data-mysqli_fetch_assoc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reading in data</option><option value="9/4/5/mixing-in-php-variables-mysqli_real_escape_string">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mixing in PHP variables</option><option value="9/4/6/results-within-results">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results within results</option><option value="9/4/7/advanced-formatting">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Advanced formatting</option><option value="9/4/8/reading-auto-incrementing-values-mysqli_insert_id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reading auto-incrementing values</option><option value="9/4/9/unbuffered-queries-for-large-data-sets-mysqli_use_result">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unbuffered queries for large data sets: MYSQLI_USE_RESULT</option><option value="9/5/0/phpmyadmin">&nbsp;&nbsp;&nbsp;phpMyAdmin</option><option value="9/6/0/peardb">&nbsp;&nbsp;&nbsp;PEAR::DB</option><option value="9/6/1/quick-peardb-calls">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quick PEAR::DB calls</option><option value="9/6/2/query-information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Query information</option><option value="9/6/3/advanced-peardb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Advanced PEAR::DB</option><option value="9/6/4/impeared-performance">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Impeared performance?</option><option value="9/7/0/sqlite">&nbsp;&nbsp;&nbsp;SQLite</option><option value="9/7/1/using-sqlite">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Using SQLite</option><option value="9/7/2/before-you-begin">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Before you begin</option><option value="9/7/3/getting-started-with-sqlite-3-opening-closing-query-fetcharray">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Getting started with SQLite 3</option><option value="9/7/4/advanced-usage-sqlite3lastinsertrowid-and-sqlite3querysingle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Advanced usage: SQLite3::lastInsertRowID() and SQLite3::querySingle()</option><option value="9/7/5/mixing-sqlite-and-php-sqlite3createfunction">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mixing SQLite and PHP: SQLite3::createFunction()</option><option value="9/8/0/normalisation">&nbsp;&nbsp;&nbsp;Normalisation</option><option value="9/8/1/why-separate-data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why separate data?</option><option value="9/8/2/so-what-is-the-solution-here">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So, what is the solution here?</option><option value="9/8/3/why-not-separate-data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why not separate data?</option><option value="9/8/4/first-normal-form">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;First normal form</option><option value="9/8/5/second-normal-form">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Second normal form</option><option value="9/8/6/other-normal-forms">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Other normal forms</option><option value="9/8/7/conclusion">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Conclusion</option><option value="9/9/0/table-joins">&nbsp;&nbsp;&nbsp;Table joins</option><option value="9/9/1/complex-joins">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Complex joins</option><option value="9/10/0/using-temporary-tables">&nbsp;&nbsp;&nbsp;Using temporary tables</option><option value="9/11/0/adjusting-the-priority-queue">&nbsp;&nbsp;&nbsp;Adjusting the priority queue</option><option value="9/12/0/how-to-design-your-tables">&nbsp;&nbsp;&nbsp;How to design your tables</option><option value="9/13/0/picking-the-perfect-data-type">&nbsp;&nbsp;&nbsp;Picking the perfect data type</option><option value="9/14/0/when-mysql-knows-best">&nbsp;&nbsp;&nbsp;When MySQL knows best</option><option value="9/15/0/persistent-connections-mysqli_connect">&nbsp;&nbsp;&nbsp;Persistent connections</option><option value="9/16/0/choosing-a-table-type">&nbsp;&nbsp;&nbsp;Choosing a table type</option><option value="9/17/0/transactions">&nbsp;&nbsp;&nbsp;Transactions</option><option value="9/18/0/mysql-improved">&nbsp;&nbsp;&nbsp;MySQL Improved</option><option value="9/19/0/subselects-views-and-other-advanced-functions">&nbsp;&nbsp;&nbsp;Subselects, views, and other advanced functions</option><option value="9/19/1/subselects">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subselects</option><option value="9/19/2/views">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Views</option><option value="9/19/3/referential-integrity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Referential integrity</option><option value="9/20/0/summary">&nbsp;&nbsp;&nbsp;Summary</option><option value="9/21/0/exercises">&nbsp;&nbsp;&nbsp;Exercises</option><option value="9/22/0/further-reading">&nbsp;&nbsp;&nbsp;Further reading</option><option value="9/23/0/next-chapter">&nbsp;&nbsp;&nbsp;Next chapter</option></select> <input type="button" value="Go" onclick="var jumpto = document.getElementById('JumpTo'); location.href = '/' + jumpto.value; " class="btn btn-primary"></p>
+<p>&nbsp;</p>
+<p>Home: <a href="http://www.hackingwithphp.com/">Table of Contents</a></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<p style="margin-bottom: 50px; margin-top: 100px; color: #777777" align="right">Copyright ©2015 Paul Hudson. <a href="http://twitter.com/twostraws">Follow me: @twostraws</a>.</p>
+
+								</div>                    
+								<div class="col-md-1" style="text-align: left;"></div>
+						</div>
+				</div>
+		</section>
+
+
+
+		<!-- =========================
+		 SCRIPTS   
+		============================== -->
+		<script src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/jquery_002.js"></script>
+		<script src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/bootstrap.js"></script>
+		<script src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/jquery_003.js"></script>
+
+		<script src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/nivo-lightbox.js"></script>
+		<script src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/owl.js"></script>
+		<script src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/jquery.js"></script>
+
+		<script src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/highlight.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+
+		<!-- CUSTOM JS  -->
+		<script src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/custom.js"></script>
+
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-58275818-2', 'auto');
+			ga('send', 'pageview');
+
+		</script>
+
+		<script src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/adsbygoogle.js"></script>
+		<script>
+		if(window.areAdsDisplayed === undefined ) {
+			$('pre').text('Oops! You appear to have an ad blocker enabled.\n\nThe adverts on this site are small and unintrusive,\nbut they help fund my work and without them I cannot\ngive these tutorials away for free.\n\nIf you do not want to view ads, please buy the\nHacking with PHP book – it\'s fully updated for\nPHP 7, and includes over 1200 pages of PHP content:\nhttps://gum.co/hwp-book-pack\n\nIf you want to carry on reading here, you will\nneed to disable your ad blocker then reload the\npage in order to see this source code.\n\nI\'m sorry that I have to do this, but please\nunderstand that it costs me money to host these\ntutorials, so when you block my adverts I am literally\npaying for you to learn. That is simply not fair, and\nI hope you will add an exception to your ad blocker\nfor this site.\n\nQuestions? Comments? Tweet me: @twostraws');
+		}
+		</script>
+
+
+
+
+
+
+
+
+
+
+                    
+<iframe scrolling="no" allowtransparency="true" src="Querying%20and%20formatting%20%20mysqli_query()%20and%20mysqli_num_rows()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/widget_iframe.htm" title="Twitter settings iframe" style="display: none;" frameborder="0"></iframe></body></html>

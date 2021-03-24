@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="description" content="Free PHP tutorials by example">
+    <meta name="keywords" content="php, mysql, apache, tutorial, book, practical, php">
+    <meta name="author" content="Paul Hudson">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- SITE TITLE -->
+    <title>Using cookies: setcookie() –&nbsp;Hacking with PHP - Practical PHP</title>
+    
+    <!-- =========================
+     FAV AND TOUCH ICONS AND FONT  
+    ============================== -->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://www.hackingwithphp.com/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="http://www.hackingwithphp.com/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="http://www.hackingwithphp.com/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="http://www.hackingwithphp.com/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="http://www.hackingwithphp.com/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="http://www.hackingwithphp.com/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="http://www.hackingwithphp.com/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="http://www.hackingwithphp.com/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="http://www.hackingwithphp.com/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="http://www.hackingwithphp.com/manifest.json">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    
+    <link href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/css.css" rel="stylesheet">
+
+    <link rel="canonical" href="http://www.hackingwithphp.com/10/2/0/using-cookies">
+    
+    <!-- =========================
+     STYLESHEETS   
+    ============================== -->
+    <!-- BOOTSTRAP AND ANIMATION -->
+    <link rel="stylesheet" href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/bootstrap.css">
+    <link rel="stylesheet" href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/animate.css">
+    
+    <!-- FONT ICONS -->
+    <link rel="stylesheet" href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/icons.css">
+    
+    <!-- CAROUSEL AND LIGHTBOX -->
+    <link rel="stylesheet" href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/owl_002.css">
+    <link rel="stylesheet" href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/owl.css">
+    <link rel="stylesheet" href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/nivo-lightbox.css">
+    <link rel="stylesheet" href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/default.css">
+    
+    <!-- CUSTOM STYLESHEETS -->
+    <link rel="stylesheet" href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/styles.css">
+    <link rel="stylesheet" href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/highlight.css">
+    
+    <!-- RESPONSIVE FIXES -->
+    <link rel="stylesheet" href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/responsive.css">
+    
+    <!-- COLORS -->
+    <link rel="stylesheet" href="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/blue.css">
+    <!-- DEFAULT COLOR/ CURRENTLY USING -->
+    <!-- <link rel="stylesheet" href="css/colors/red.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/green.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/green2.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/purple.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/orange.css"> -->
+    
+    <!--[if lt IE 9]>
+			<script src="/js/html5shiv.min.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]>
+      <style type="text/css">
+        .standard-button,
+        .navbar-register-button {
+       filter: none;
+        }
+      </style>
+    <![endif]-->
+    <!-- ****************
+      After neccessary customization/modification, Please minify HTML/CSS according to http://browserdiet.com/en/ for better performance
+     **************** -->
+
+     <style>
+        ul li {
+            list-style: disc;
+        }
+
+        ol li {
+            list-style: inherit;
+        }
+
+        ul, ol {
+            padding-left: 60px!important;
+        }
+
+        a.offset-anchor {
+            display: block; position: relative; top: -40px; visibility: hidden;
+        }
+
+        h2.spaced, p.spaced {
+            margin-top: 40px;
+        }
+
+        div.funcprototypes {
+            background-color: #f7f7f7;
+            border: 1px dashed #e0e0e0;
+            padding: 10px;
+            margin-bottom: 30px;
+        }
+
+        div.funcprototypes p {
+            margin-bottom: 0;
+        }
+
+
+
+        div.computeroutput  {
+            background-color: #fffff2;
+            padding: 10px;
+            border: 1px solid #e5e5c0;
+            margin: 5px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        div.computeroutput code {
+            padding: 0;
+        }
+
+        div.caution     {
+            background-color: #ffeeee; 
+            padding: 10px; 
+            border: 1px dashed #ffaaaa; 
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        div.caution p:last-child {
+            margin-bottom: 0;
+        }
+
+        p.funcprototype     {
+            margin: 0;
+        }
+
+        table.bodytext  {
+            border: 1px solid #AAAAAA!important;
+            border-spacing: 0;
+            border-collapse: collapse!important;
+            margin-bottom: 40px;
+        }
+
+        table.bodytext  td {
+            border: 1px solid #AAAAAA!important;
+            padding: 10px;
+        }
+
+
+        div.tight   p {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        div.tight   {
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            margin-top: 40px;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+        }
+
+        code {
+            color: black;
+            background-color: transparent;
+        }
+
+        img {
+            border: 1px solid black;
+            margin: 20px;
+            max-width: 95%;
+        }
+
+        div.warning {
+            border: 1px dashed red;
+            background-color: rgba(255, 0, 0, 0.05);
+            padding: 20px;
+            margin: 20px;
+            border-radius: 15px;
+        }
+
+        div.warning h2 {
+            font-size: 150%;
+            line-height: 100%;
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        div.warning p {
+            line-height: 100%;
+            margin: 0;
+        }
+
+        pre {
+            margin-bottom: 30px;
+            overflow-x: auto;
+            word-wrap: normal;
+        }
+
+        pre code {
+            white-space: pre;            
+        }
+
+        td p {
+            margin: auto;
+        }
+     </style>
+
+<script charset="utf-8" src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/button.js"></script></head>
+
+<body>
+        
+    <!-- =========================
+     SECTION: HOME / HEADER  
+    ============================== -->
+
+
+            <!-- STICKY NAVIGATION -->
+            <div class="navbar navbar-inverse bs-docs-nav navbar-fixed-top sticky-navigation" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <!-- LOGO -->
+                        <a class="navbar-brand" href="http://www.hackingwithphp.com/">
+                            <p class="lead" style="margin-top: 5px; color: #999999;"><strong>Hacking with PHP</strong></p>
+                        </a>
+                    </div>
+
+                    <div class="navbar-collapse collapse" id="stamp-navigation">
+                        <ul class="nav navbar-nav navbar-right login-register small-text">
+                            <li class="register-button js-register inpage-scroll"><p class="lead" style="margin-top: 5px;">Using cookies</p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /END STICKY NAVIGATION -->
+
+
+    <section id="latestTutorial" class="navbar-fixed-top">
+        <div class="container" style="background-color: firebrick; margin: 0; width: 100%;">
+            <p class="lead" style="margin-top: 5px; margin: 6px; color: white;"><a href="https://gum.co/hwp-book-pack" style="color: white;">Hacking with PHP has been <strong><u>updated for PHP 7</u></strong> - only $20! &gt;&gt;</a>
+</p>
+        </div>
+    </section>
+
+    <section style="margin-top: 120px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1" style="text-align: left;"></div>
+                <div class="col-md-10" style="text-align: left;"> 
+
+
+
+
+<h1>Using cookies</h1><div class="funcprototypes">
+  <p class="funcprototype">
+    bool <strong>setcookie</strong> ( string <em>name</em> [, string <em>value</em> [, int <em>expire</em> [, string <em>path</em> [, string <em>domain</em> [, int <em>secure</em>]]]]])
+  </p>
+</div>
+<p>
+  Taking the example of sorting a messageboard index, a cookie would 
+need to be placed that holds the user's preference on message sorting - 
+whether they want it newest first, oldest first, or sorted 
+alphabetically. Take a look at this piece of code:
+</p>
+<pre><code class="php hljs"><span class="hljs-preprocessor">&lt;?php</span>
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_COOKIE</span>[<span class="hljs-string">'Ordering'</span>])) {
+        setcookie(<span class="hljs-string">"Ordering"</span>, <span class="hljs-variable">$_POST</span>[<span class="hljs-string">'ChangeOrdering'</span>], time() + <span class="hljs-number">31536000</span>);
+    }
+<span class="hljs-preprocessor">?&gt;</span>
+&lt;form method=<span class="hljs-string">"post"</span> action=<span class="hljs-string">"mbprefs.php"</span>&gt; Reorder messages:
+&lt;select name=<span class="hljs-string">"ChangeOrdering"</span>&gt;
+&lt;option value=<span class="hljs-string">"DateAdded ASC"</span>&gt;Oldest first&lt;/option&gt;
+&lt;option value=<span class="hljs-string">"DateAdded DESC"</span>&gt;Newest first&lt;/option&gt;
+&lt;option value=<span class="hljs-string">"Title ASC"</span>&gt;By Title, A-Z&lt;/option&gt;
+&lt;option value=<span class="hljs-string">"Title DESC"</span>&gt;By Title, Z-A&lt;/option&gt;
+&lt;/select&gt;
+&lt;input type=<span class="hljs-string">"submit"</span> value=<span class="hljs-string">" Save Settings "</span> /&gt;
+&lt;/form&gt;
+</code></pre>
+<p>
+  The script can be split up into two distinct parts - first we check whether a cookie is set, and, if not, we use the <em>setcookie()</em> function to set it. Then we output a form allowing visitors to select how they'd like their ordering set.
+</p>
+<p>
+  The <em>setcookie()</em> call needs to be before the HTML form because
+ of the way the web works. The explanation requires a little knowledge 
+of how HTTP works and is quite important if you want to understand how 
+cookies work, but never fear - I will try to keep it as simple as 
+possible!
+</p>
+<p>
+  HTTP operates by sending all "header" information before it sends 
+"body" information. In the header, it sends things like server type 
+(e.g. "Apache"), page size (e.g. "29019 bytes"), and other important 
+data. In the body, it sends the actual HTML you see on the screen. HTTP 
+works in such a way that header data cannot come after body data - you 
+must send all your header data before you send any body data at all.
+</p>
+<p>
+  Cookies come into the category of header data - when you place a cookie using <em>setcookie()</em>,
+ your web server adds a line in your header data for that cookie. If you
+ try and send a cookie after you have started sending HTML, PHP will 
+flag up serious errors and the cookie will not get placed.
+</p>
+<p>
+  There are two ways to correct this:
+</p>
+<ul>
+  <li>
+    <p>
+      Put your cookies near the top of your page. By sending them before you send any body data, you avoid the problem entirely.
+    </p>
+  </li>
+  <li>
+    <p>
+      Enable output buffering in PHP. This allows you to send header 
+information such as cookies wherever you like - even after (or in the 
+middle of) body data. Output buffering is covered in depth in its own 
+chapter.
+    </p>
+  </li>
+</ul>
+<p>
+  The <em>setcookie()</em> function itself takes three main parameters: 
+the name of the cookie, the value of the cookie, and the date the cookie
+ should expire.
+</p>
+<div class="caution">
+  <p>
+    Author's Note: One important thing to remember about cookies is that
+ they are sent to the server each time a user visits a page. So, if you 
+set a cookie in a script, it does not become available until your user 
+visits the next page (or hits refresh) - this often confuses people who 
+are desperately hunting for a bug.
+  </p>
+</div>
+<p>
+  In the example code, <em>setcookie()</em> sets a cookie called 
+"Ordering" to the value set in the form from the drop down SELECT box, 
+and it uses time() + 31536000 as its third parameter - this is equal to 
+the current time in seconds plus the number of seconds in a year, which 
+means the cookie is set to expire one year from the time it was set.
+</p>
+<p>
+  Once set, the Ordering cookie will be sent with every subsequent page request, and PHP will make it available in <font color="#0000BB">$_COOKIE</font>.
+ Note that users can clear their cookies manually, either by using a 
+special option in their web browser or just by deleting files. It is 
+also important to note that cookies are sent from your visitor to you 
+when the page is requested - if you set the cookie during the PHP script
+ that is requested, it will not have been sent with the request, which 
+means it will not be in <font color="#0000BB">$_COOKIE</font> - this is what is meant by "every subsequent page request"!
+</p>
+<p>
+  The last three parameters of the <em>setcookie()</em> function allow 
+you to restrict when it's sent, which gives you a little more control. 
+They aren't used often, but, in case you were interested, here's how 
+they work:
+</p>
+<ul>
+  <li>
+    <p>
+      Parameter four ("path") allows you to set a directory in which the
+ cookie is active. By default, this is "/" (active for the entire site),
+ but you could set it to "/messageboards/" to have the cookie only 
+available in that directory and its subdirectories.
+    </p>
+  </li>
+  <li>
+    <p>
+      Parameter five ("domain") allows you to set a subdomain in which 
+the cookie is active. For example, specifying "mail.yoursite.com" will 
+make the cookie available there but not on www.yoursite.com. Use 
+".yoursite.com" to make the cookie available everywhere.
+    </p>
+  </li>
+  <li>
+    <p>
+      Parameter six ("secure") lets you specify whether the cookie must 
+only be sent through a HTTPS connection or not. The default, "0", has 
+the cookie sent across both HTTPS and HTTP, but you can set it to 1 to 
+force HTTPS only.
+    </p>
+  </li>
+</ul><p>&nbsp;</p>
+<div style="text-align: center">
+
+<div style="max-width: 80%; margin: auto; margin-top: 50px; margin-bottom: 50px;">
+    <p class="lead" style="margin-bottom: 0;" align="center"><strong>Want to learn PHP 7?</strong></p>
+    <p class="lead" align="center">Hacking with PHP has been fully updated for PHP 7, and is now available as a downloadable PDF. Get <strong>over 1200 pages</strong> of hands-on PHP learning today!</p>
+    <p align="center"><input type="button" class="btn btn-lg btn-success" onclick="location.href='https://gum.co/hwp-book-pack';" value="Buy now for only $20!"></p>
+</div>
+
+
+<p align="center">If this was helpful, please take a moment to tell others about Hacking with PHP by tweeting about it!</p>
+
+<p style="margin-bottom: 30px;" align="center"><iframe id="twitter-widget-0" scrolling="no" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 74px; height: 28px;" title="Twitter Tweet Button" src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/tweet_button.htm" data-url="http://www.hackingwithphp.com/10/2/0/using-cookies" frameborder="0"></iframe><script async="" src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/analytics.js"></script><script id="twitter-wjs" src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/widgets.js"></script><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+
+<p><strong>Next chapter: <a href="http://www.hackingwithphp.com/10/3/0/using-sessions">Using sessions &gt;&gt;</a></strong></p><p>Previous chapter: <a href="http://www.hackingwithphp.com/10/1/3/choosing-the-appropriate-option">Choosing the appropriate option</a></p><p>Jump to: <select name="related" id="JumpTo" class="form-control" style="display: inline; width: auto"><option value="10/0/0/cookies-and-sessions">Cookies and Sessions</option><option value="10/1/0/cookies-vs-sessions">&nbsp;&nbsp;&nbsp;Cookies vs. Sessions</option><option value="10/1/1/cookies">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cookies</option><option value="10/1/2/sessions">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sessions</option><option value="10/1/3/choosing-the-appropriate-option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choosing the appropriate option</option><option selected="selected" style="font-weight: bold;" value="10/2/0/using-cookies-setcookie">&nbsp;&nbsp;&nbsp;Using cookies</option><option value="10/3/0/using-sessions">&nbsp;&nbsp;&nbsp;Using sessions</option><option value="10/3/1/starting-a-session-session_start">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Starting a session</option><option value="10/3/2/adding-session-data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adding session data</option><option value="10/3/3/reading-session-data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reading session data</option><option value="10/3/4/removing-session-data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removing session data</option><option value="10/3/5/ending-a-session-session_destroy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ending a session</option><option value="10/3/6/checking-session-data">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checking session data</option><option value="10/3/7/files-vs-databases-session_set_save_handler">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Files vs. Databases</option><option value="10/4/0/storing-complex-data-types">&nbsp;&nbsp;&nbsp;Storing complex data types</option><option value="10/5/0/summary">&nbsp;&nbsp;&nbsp;Summary</option><option value="10/6/0/exercises">&nbsp;&nbsp;&nbsp;Exercises</option><option value="10/7/0/further-reading">&nbsp;&nbsp;&nbsp;Further reading</option><option value="10/8/0/next-chapter">&nbsp;&nbsp;&nbsp;Next chapter</option></select> <input type="button" value="Go" onclick="var jumpto = document.getElementById('JumpTo'); location.href = '/' + jumpto.value; " class="btn btn-primary"></p>
+<p>&nbsp;</p>
+<p>Home: <a href="http://www.hackingwithphp.com/">Table of Contents</a></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<p style="margin-bottom: 50px; margin-top: 100px; color: #777777" align="right">Copyright ©2015 Paul Hudson. <a href="http://twitter.com/twostraws">Follow me: @twostraws</a>.</p>
+
+								</div>                    
+								<div class="col-md-1" style="text-align: left;"></div>
+						</div>
+				</div>
+		</section>
+
+
+
+		<!-- =========================
+		 SCRIPTS   
+		============================== -->
+		<script src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/jquery_002.js"></script>
+		<script src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/bootstrap.js"></script>
+		<script src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/jquery_003.js"></script>
+
+		<script src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/nivo-lightbox.js"></script>
+		<script src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/owl.js"></script>
+		<script src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/jquery.js"></script>
+
+		<script src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/highlight.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+
+		<!-- CUSTOM JS  -->
+		<script src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/custom.js"></script>
+
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-58275818-2', 'auto');
+			ga('send', 'pageview');
+
+		</script>
+
+		<script src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/adsbygoogle.js"></script>
+		<script>
+		if(window.areAdsDisplayed === undefined ) {
+			$('pre').text('Oops! You appear to have an ad blocker enabled.\n\nThe adverts on this site are small and unintrusive,\nbut they help fund my work and without them I cannot\ngive these tutorials away for free.\n\nIf you do not want to view ads, please buy the\nHacking with PHP book – it\'s fully updated for\nPHP 7, and includes over 1200 pages of PHP content:\nhttps://gum.co/hwp-book-pack\n\nIf you want to carry on reading here, you will\nneed to disable your ad blocker then reload the\npage in order to see this source code.\n\nI\'m sorry that I have to do this, but please\nunderstand that it costs me money to host these\ntutorials, so when you block my adverts I am literally\npaying for you to learn. That is simply not fair, and\nI hope you will add an exception to your ad blocker\nfor this site.\n\nQuestions? Comments? Tweet me: @twostraws');
+		}
+		</script>
+
+
+
+
+
+
+
+
+
+
+                    
+<iframe scrolling="no" allowtransparency="true" src="Using%20cookies%20%20setcookie()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/widget_iframe.htm" title="Twitter settings iframe" style="display: none;" frameborder="0"></iframe></body></html>

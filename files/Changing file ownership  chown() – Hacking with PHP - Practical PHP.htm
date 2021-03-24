@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="description" content="Free PHP tutorials by example">
+    <meta name="keywords" content="php, mysql, apache, tutorial, book, practical, php">
+    <meta name="author" content="Paul Hudson">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- SITE TITLE -->
+    <title>Changing file ownership: chown() –&nbsp;Hacking with PHP - Practical PHP</title>
+    
+    <!-- =========================
+     FAV AND TOUCH ICONS AND FONT  
+    ============================== -->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://www.hackingwithphp.com/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="http://www.hackingwithphp.com/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="http://www.hackingwithphp.com/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="http://www.hackingwithphp.com/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="http://www.hackingwithphp.com/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="http://www.hackingwithphp.com/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="http://www.hackingwithphp.com/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="http://www.hackingwithphp.com/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="http://www.hackingwithphp.com/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="http://www.hackingwithphp.com/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="http://www.hackingwithphp.com/manifest.json">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    
+    <link href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/css.css" rel="stylesheet">
+
+    <link rel="canonical" href="http://www.hackingwithphp.com/8/12/2/changing-file-ownership">
+    
+    <!-- =========================
+     STYLESHEETS   
+    ============================== -->
+    <!-- BOOTSTRAP AND ANIMATION -->
+    <link rel="stylesheet" href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/bootstrap.css">
+    <link rel="stylesheet" href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/animate.css">
+    
+    <!-- FONT ICONS -->
+    <link rel="stylesheet" href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/icons.css">
+    
+    <!-- CAROUSEL AND LIGHTBOX -->
+    <link rel="stylesheet" href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/owl_002.css">
+    <link rel="stylesheet" href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/owl.css">
+    <link rel="stylesheet" href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/nivo-lightbox.css">
+    <link rel="stylesheet" href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/default.css">
+    
+    <!-- CUSTOM STYLESHEETS -->
+    <link rel="stylesheet" href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/styles.css">
+    <link rel="stylesheet" href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/highlight.css">
+    
+    <!-- RESPONSIVE FIXES -->
+    <link rel="stylesheet" href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/responsive.css">
+    
+    <!-- COLORS -->
+    <link rel="stylesheet" href="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/blue.css">
+    <!-- DEFAULT COLOR/ CURRENTLY USING -->
+    <!-- <link rel="stylesheet" href="css/colors/red.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/green.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/green2.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/purple.css"> -->
+    <!-- <link rel="stylesheet" href="css/colors/orange.css"> -->
+    
+    <!--[if lt IE 9]>
+			<script src="/js/html5shiv.min.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]>
+      <style type="text/css">
+        .standard-button,
+        .navbar-register-button {
+       filter: none;
+        }
+      </style>
+    <![endif]-->
+    <!-- ****************
+      After neccessary customization/modification, Please minify HTML/CSS according to http://browserdiet.com/en/ for better performance
+     **************** -->
+
+     <style>
+        ul li {
+            list-style: disc;
+        }
+
+        ol li {
+            list-style: inherit;
+        }
+
+        ul, ol {
+            padding-left: 60px!important;
+        }
+
+        a.offset-anchor {
+            display: block; position: relative; top: -40px; visibility: hidden;
+        }
+
+        h2.spaced, p.spaced {
+            margin-top: 40px;
+        }
+
+        div.funcprototypes {
+            background-color: #f7f7f7;
+            border: 1px dashed #e0e0e0;
+            padding: 10px;
+            margin-bottom: 30px;
+        }
+
+        div.funcprototypes p {
+            margin-bottom: 0;
+        }
+
+
+
+        div.computeroutput  {
+            background-color: #fffff2;
+            padding: 10px;
+            border: 1px solid #e5e5c0;
+            margin: 5px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        div.computeroutput code {
+            padding: 0;
+        }
+
+        div.caution     {
+            background-color: #ffeeee; 
+            padding: 10px; 
+            border: 1px dashed #ffaaaa; 
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        div.caution p:last-child {
+            margin-bottom: 0;
+        }
+
+        p.funcprototype     {
+            margin: 0;
+        }
+
+        table.bodytext  {
+            border: 1px solid #AAAAAA!important;
+            border-spacing: 0;
+            border-collapse: collapse!important;
+            margin-bottom: 40px;
+        }
+
+        table.bodytext  td {
+            border: 1px solid #AAAAAA!important;
+            padding: 10px;
+        }
+
+
+        div.tight   p {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        div.tight   {
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            margin-top: 40px;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+        }
+
+        code {
+            color: black;
+            background-color: transparent;
+        }
+
+        img {
+            border: 1px solid black;
+            margin: 20px;
+            max-width: 95%;
+        }
+
+        div.warning {
+            border: 1px dashed red;
+            background-color: rgba(255, 0, 0, 0.05);
+            padding: 20px;
+            margin: 20px;
+            border-radius: 15px;
+        }
+
+        div.warning h2 {
+            font-size: 150%;
+            line-height: 100%;
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        div.warning p {
+            line-height: 100%;
+            margin: 0;
+        }
+
+        pre {
+            margin-bottom: 30px;
+            overflow-x: auto;
+            word-wrap: normal;
+        }
+
+        pre code {
+            white-space: pre;            
+        }
+
+        td p {
+            margin: auto;
+        }
+     </style>
+
+<script charset="utf-8" src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/button.js"></script></head>
+
+<body>
+        
+    <!-- =========================
+     SECTION: HOME / HEADER  
+    ============================== -->
+
+
+            <!-- STICKY NAVIGATION -->
+            <div class="navbar navbar-inverse bs-docs-nav navbar-fixed-top sticky-navigation" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <!-- LOGO -->
+                        <a class="navbar-brand" href="http://www.hackingwithphp.com/">
+                            <p class="lead" style="margin-top: 5px; color: #999999;"><strong>Hacking with PHP</strong></p>
+                        </a>
+                    </div>
+
+                    <div class="navbar-collapse collapse" id="stamp-navigation">
+                        <ul class="nav navbar-nav navbar-right login-register small-text">
+                            <li class="register-button js-register inpage-scroll"><p class="lead" style="margin-top: 5px;">Changing file ownership</p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /END STICKY NAVIGATION -->
+
+
+    <section id="latestTutorial" class="navbar-fixed-top">
+        <div class="container" style="background-color: firebrick; margin: 0; width: 100%;">
+            <p class="lead" style="margin-top: 5px; margin: 6px; color: white;"><a href="https://gum.co/hwp-book-pack" style="color: white;">Hacking with PHP has been <strong><u>updated for PHP 7</u></strong> - only $20! &gt;&gt;</a>
+</p>
+        </div>
+    </section>
+
+    <section style="margin-top: 120px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1" style="text-align: left;"></div>
+                <div class="col-md-10" style="text-align: left;"> 
+
+
+
+
+<h1>Changing file ownership</h1><div class="funcprototypes">
+  <p class="funcprototype">
+    bool <strong>chown</strong> ( string <em>filename</em>, mixed <em>user</em>)
+  </p>
+</div>
+<p>
+  The <em>chown()</em> function is quite rarely used in PHP as you 
+require special privileges to change the ownership of a file, and only 
+crazy people run their web server with any privileges beyond reading the
+ public HTML directory. However, on the command-line <em>chown()</em> is
+ helpful now and then, and it attempts to change the file passed in 
+parameter one so that it is owned by the user specified in parameter 
+two. On success, true is returned, otherwise false. The second parameter
+ can either be a username or a user ID number.
+</p>
+<p>
+  Note that <em>chown()</em> only works on local filesystems.
+</p>
+<pre><code class="php hljs"><span class="hljs-preprocessor">&lt;?php</span>
+    <span class="hljs-keyword">if</span> (chown(<span class="hljs-string">"myfile.txt"</span>, <span class="hljs-string">"sally"</span>)) {
+        <span class="hljs-keyword">print</span> <span class="hljs-string">"File owner changed.\n"</span>;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">print</span> <span class="hljs-string">"File ownership change failed!\n"</span>;
+    }
+<span class="hljs-preprocessor">?&gt;</span>
+</code></pre><p>&nbsp;</p>
+<div style="text-align: center">
+
+<div style="max-width: 80%; margin: auto; margin-top: 50px; margin-bottom: 50px;">
+    <p class="lead" style="margin-bottom: 0;" align="center"><strong>Want to learn PHP 7?</strong></p>
+    <p class="lead" align="center">Hacking with PHP has been fully updated for PHP 7, and is now available as a downloadable PDF. Get <strong>over 1200 pages</strong> of hands-on PHP learning today!</p>
+    <p align="center"><input type="button" class="btn btn-lg btn-success" onclick="location.href='https://gum.co/hwp-book-pack';" value="Buy now for only $20!"></p>
+</div>
+
+
+<p align="center">If this was helpful, please take a moment to tell others about Hacking with PHP by tweeting about it!</p>
+
+<p style="margin-bottom: 30px;" align="center"><iframe id="twitter-widget-0" scrolling="no" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 74px; height: 28px;" title="Twitter Tweet Button" src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/tweet_button.htm" data-url="http://www.hackingwithphp.com/8/12/2/changing-file-ownership" frameborder="0"></iframe><script async="" src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/analytics.js"></script><script id="twitter-wjs" src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/widgets.js"></script><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+
+<p><strong>Next chapter: <a href="http://www.hackingwithphp.com/8/13/0/working-with-directories">Working with directories &gt;&gt;</a></strong></p><p>Previous chapter: <a href="http://www.hackingwithphp.com/8/12/1/setting-permissions">Setting permissions</a></p><p>Jump to: <select name="related" id="JumpTo" class="form-control" style="display: inline; width: auto"><option value="8/0/0/files">Files</option><option value="8/1/0/reading-files">&nbsp;&nbsp;&nbsp;Reading files</option><option value="8/1/1/readfile">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;readfile()</option><option value="8/1/2/file_get_contents-and-file">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file_get_contents() and file()</option><option value="8/1/3/fopen-and-fread">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fopen() and fread()</option><option value="8/2/0/creating-and-changing-files">&nbsp;&nbsp;&nbsp;Creating and changing files</option><option value="8/2/1/file_put_contents">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file_put_contents()</option><option value="8/2/2/fwrite">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fwrite()</option><option value="8/3/0/moving-copying-and-deleting-files-rename-copy-and-unlink">&nbsp;&nbsp;&nbsp;Moving, copying, and deleting files</option><option value="8/3/1/moving-files-with-rename">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moving files with rename()</option><option value="8/3/2/copying-files-with-copy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copying files with copy()</option><option value="8/3/3/deleting-files-with-unlink">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deleting files with unlink()</option><option value="8/4/0/temporary-files-tmpfile">&nbsp;&nbsp;&nbsp;Temporary files</option><option value="8/5/0/other-file-functions-rewind-and-fseek">&nbsp;&nbsp;&nbsp;Other file functions</option><option value="8/6/0/checking-whether-a-file-exists-file_exists">&nbsp;&nbsp;&nbsp;Checking whether a file exists</option><option value="8/7/0/retrieving-a-files-status-is_readable-is_writeable-is_executable">&nbsp;&nbsp;&nbsp;Retrieving a file's status</option><option value="8/8/0/dissecting-filename-information-pathinfo-and-basename">&nbsp;&nbsp;&nbsp;Dissecting filename information</option><option value="8/9/0/a-working-example-making-a-counter">&nbsp;&nbsp;&nbsp;A working example: making a counter</option><option value="8/10/0/handling-file-uploads-move_uploaded_file">&nbsp;&nbsp;&nbsp;Handling file uploads</option><option value="8/10/1/advanced-file-upload-handling">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Advanced file upload handling</option><option value="8/10/2/checking-uploaded-files-is_uploaded_file">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checking uploaded files</option><option value="8/11/0/locking-files-with-flock">&nbsp;&nbsp;&nbsp;Locking files with flock()</option><option value="8/12/0/permissions">&nbsp;&nbsp;&nbsp;Permissions</option><option value="8/12/1/setting-permissions-chmod">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setting permissions</option><option selected="selected" style="font-weight: bold;" value="8/12/2/changing-file-ownership-chown">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Changing file ownership</option><option value="8/13/0/working-with-directories-opendir-readdir-and-closedir">&nbsp;&nbsp;&nbsp;Working with directories</option><option value="8/13/1/deleting-directories-rmdir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deleting directories</option><option value="8/13/2/one-last-directory-function-scandir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;One last directory function</option><option value="8/14/0/remote-files">&nbsp;&nbsp;&nbsp;Remote files</option><option value="8/15/0/file-checksums-sha1_file-and-md5_file">&nbsp;&nbsp;&nbsp;File checksums</option><option value="8/16/0/parsing-a-configuration-file-parse_ini_file">&nbsp;&nbsp;&nbsp;Parsing a configuration file</option><option value="8/17/0/summary">&nbsp;&nbsp;&nbsp;Summary</option><option value="8/18/0/exercises">&nbsp;&nbsp;&nbsp;Exercises</option><option value="8/19/0/further-reading">&nbsp;&nbsp;&nbsp;Further reading</option><option value="8/20/0/next-chapter">&nbsp;&nbsp;&nbsp;Next chapter</option></select> <input type="button" value="Go" onclick="var jumpto = document.getElementById('JumpTo'); location.href = '/' + jumpto.value; " class="btn btn-primary"></p>
+<p>&nbsp;</p>
+<p>Home: <a href="http://www.hackingwithphp.com/">Table of Contents</a></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<p style="margin-bottom: 50px; margin-top: 100px; color: #777777" align="right">Copyright ©2015 Paul Hudson. <a href="http://twitter.com/twostraws">Follow me: @twostraws</a>.</p>
+
+								</div>                    
+								<div class="col-md-1" style="text-align: left;"></div>
+						</div>
+				</div>
+		</section>
+
+
+
+		<!-- =========================
+		 SCRIPTS   
+		============================== -->
+		<script src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/jquery_002.js"></script>
+		<script src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/bootstrap.js"></script>
+		<script src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/jquery_003.js"></script>
+
+		<script src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/nivo-lightbox.js"></script>
+		<script src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/owl.js"></script>
+		<script src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/jquery.js"></script>
+
+		<script src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/highlight.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+
+		<!-- CUSTOM JS  -->
+		<script src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/custom.js"></script>
+
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-58275818-2', 'auto');
+			ga('send', 'pageview');
+
+		</script>
+
+		<script src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/adsbygoogle.js"></script>
+		<script>
+		if(window.areAdsDisplayed === undefined ) {
+			$('pre').text('Oops! You appear to have an ad blocker enabled.\n\nThe adverts on this site are small and unintrusive,\nbut they help fund my work and without them I cannot\ngive these tutorials away for free.\n\nIf you do not want to view ads, please buy the\nHacking with PHP book – it\'s fully updated for\nPHP 7, and includes over 1200 pages of PHP content:\nhttps://gum.co/hwp-book-pack\n\nIf you want to carry on reading here, you will\nneed to disable your ad blocker then reload the\npage in order to see this source code.\n\nI\'m sorry that I have to do this, but please\nunderstand that it costs me money to host these\ntutorials, so when you block my adverts I am literally\npaying for you to learn. That is simply not fair, and\nI hope you will add an exception to your ad blocker\nfor this site.\n\nQuestions? Comments? Tweet me: @twostraws');
+		}
+		</script>
+
+
+
+
+
+
+
+
+
+
+                    
+<iframe scrolling="no" allowtransparency="true" src="Changing%20file%20ownership%20%20chown()%20%E2%80%93%C2%A0Hacking%20with%20PHP%20-%20Practical%20PHP_archivos/widget_iframe.htm" title="Twitter settings iframe" style="display: none;" frameborder="0"></iframe></body></html>

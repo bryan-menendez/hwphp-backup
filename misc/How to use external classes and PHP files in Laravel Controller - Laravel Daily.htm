@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<!--[if IE 8]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html prefix="og: http://ogp.me/ns#" class=" td-md-is-firefox" lang="en-US"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>How to use external classes and PHP files in Laravel Controller? - Laravel Daily</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="pingback" href="https://laraveldaily.com/xmlrpc.php">
+    
+<!-- This site is optimized with the Yoast SEO plugin v9.3 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/a_002.htm">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to use external classes and PHP files in Laravel Controller? - Laravel Daily">
+<meta property="og:description" content="Laravel is an MVC framework with its own folder structure, but sometimes we want to use something external which doesn't follow the same structure. Let's review two different scenarios - when we have external class and when it's just a .php file.">
+<meta property="og:url" content="https://laraveldaily.com/how-to-use-external-classes-and-php-files-in-laravel-controller/">
+<meta property="og:site_name" content="Laravel Daily">
+<meta property="article:section" content="Tutorials">
+<meta property="article:published_time" content="2015-07-28T12:17:28+00:00">
+<meta property="article:modified_time" content="2018-12-26T15:31:48+00:00">
+<meta property="og:updated_time" content="2018-12-26T15:31:48+00:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Laravel is an MVC framework with its own folder structure, but sometimes we want to use something external which doesn't follow the same structure. Let's review two different scenarios - when we have external class and when it's just a .php file.">
+<meta name="twitter:title" content="How to use external classes and PHP files in Laravel Controller? - Laravel Daily">
+<meta name="twitter:creator" content="@povilaskorop">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Laravel Daily » Feed" href="https://laraveldaily.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Laravel Daily » Comments Feed" href="https://laraveldaily.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Laravel Daily » How to use external classes and PHP files in Laravel Controller? Comments Feed" href="https://laraveldaily.com/how-to-use-external-classes-and-php-files-in-laravel-controller/feed/">
+		<script type="text/javascript" async="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/analytics.js"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/laraveldaily.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.0.10"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/wp-emoji-release.js" type="text/javascript" defer="defer"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="wp-block-library-css" href="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/style_002.css" type="text/css" media="all">
+<link rel="stylesheet" id="td-plugin-multi-purpose-css" href="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/style_003.css" type="text/css" media="all">
+<link rel="stylesheet" id="google-fonts-style-css" href="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/css.css" type="text/css" media="all">
+<link rel="stylesheet" id="td-theme-css" href="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/style.css" type="text/css" media="all">
+<script type="text/javascript" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/jquery.js"></script>
+<script type="text/javascript" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/jquery-migrate.js"></script>
+<link rel="https://api.w.org/" href="https://laraveldaily.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://laraveldaily.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://laraveldaily.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 5.0.10">
+<link rel="shortlink" href="https://laraveldaily.com/?p=142">
+<link rel="alternate" type="application/json+oembed" href="https://laraveldaily.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flaraveldaily.com%2Fhow-to-use-external-classes-and-php-files-in-laravel-controller%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://laraveldaily.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flaraveldaily.com%2Fhow-to-use-external-classes-and-php-files-in-laravel-controller%2F&amp;format=xml">
+			<script>
+				window.tdwGlobal = {"adminUrl":"https:\/\/laraveldaily.com\/wp-admin\/","wpRestNonce":"bd10dcf6c2","wpRestUrl":"https:\/\/laraveldaily.com\/wp-json\/","permalinkStructure":"\/%postname%\/"};
+			</script>
+			<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		
+<!-- JS generated by theme -->
+
+<script>
+    
+    
+
+	    var tdBlocksArray = []; //here we store all the items for the current page
+
+	    //td_block class - each ajax block uses a object of this class for requests
+	    function tdBlock() {
+		    this.id = '';
+		    this.block_type = 1; //block type id (1-234 etc)
+		    this.atts = '';
+		    this.td_column_number = '';
+		    this.td_current_page = 1; //
+		    this.post_count = 0; //from wp
+		    this.found_posts = 0; //from wp
+		    this.max_num_pages = 0; //from wp
+		    this.td_filter_value = ''; //current live filter value
+		    this.is_ajax_running = false;
+		    this.td_user_action = ''; // load more or infinite loader (used by the animation)
+		    this.header_color = '';
+		    this.ajax_pagination_infinite_stop = ''; //show load more at page x
+	    }
+
+
+        // td_js_generator - mini detector
+        (function(){
+            var htmlTag = document.getElementsByTagName("html")[0];
+
+	        if ( navigator.userAgent.indexOf("MSIE 10.0") > -1 ) {
+                htmlTag.className += ' ie10';
+            }
+
+            if ( !!navigator.userAgent.match(/Trident.*rv\:11\./) ) {
+                htmlTag.className += ' ie11';
+            }
+
+	        if ( navigator.userAgent.indexOf("Edge") > -1 ) {
+                htmlTag.className += ' ieEdge';
+            }
+
+            if ( /(iPad|iPhone|iPod)/g.test(navigator.userAgent) ) {
+                htmlTag.className += ' td-md-is-ios';
+            }
+
+            var user_agent = navigator.userAgent.toLowerCase();
+            if ( user_agent.indexOf("android") > -1 ) {
+                htmlTag.className += ' td-md-is-android';
+            }
+
+            if ( -1 !== navigator.userAgent.indexOf('Mac OS X')  ) {
+                htmlTag.className += ' td-md-is-os-x';
+            }
+
+            if ( /chrom(e|ium)/.test(navigator.userAgent.toLowerCase()) ) {
+               htmlTag.className += ' td-md-is-chrome';
+            }
+
+            if ( -1 !== navigator.userAgent.indexOf('Firefox') ) {
+                htmlTag.className += ' td-md-is-firefox';
+            }
+
+            if ( -1 !== navigator.userAgent.indexOf('Safari') && -1 === navigator.userAgent.indexOf('Chrome') ) {
+                htmlTag.className += ' td-md-is-safari';
+            }
+
+            if( -1 !== navigator.userAgent.indexOf('IEMobile') ){
+                htmlTag.className += ' td-md-is-iemobile';
+            }
+
+        })();
+
+
+
+
+        var tdLocalCache = {};
+
+        ( function () {
+            "use strict";
+
+            tdLocalCache = {
+                data: {},
+                remove: function (resource_id) {
+                    delete tdLocalCache.data[resource_id];
+                },
+                exist: function (resource_id) {
+                    return tdLocalCache.data.hasOwnProperty(resource_id) && tdLocalCache.data[resource_id] !== null;
+                },
+                get: function (resource_id) {
+                    return tdLocalCache.data[resource_id];
+                },
+                set: function (resource_id, cachedData) {
+                    tdLocalCache.remove(resource_id);
+                    tdLocalCache.data[resource_id] = cachedData;
+                }
+            };
+        })();
+
+    
+    
+var tds_login_sing_in_widget="show";
+var td_viewport_interval_list=[{"limitBottom":767,"sidebarWidth":228},{"limitBottom":1018,"sidebarWidth":300},{"limitBottom":1140,"sidebarWidth":324}];
+var td_animation_stack_effect="type0";
+var tds_animation_stack=true;
+var td_animation_stack_specific_selectors=".entry-thumb, img";
+var td_animation_stack_general_selectors=".td-animation-stack img, .td-animation-stack .entry-thumb, .post img";
+var td_ajax_url="https:\/\/laraveldaily.com\/wp-admin\/admin-ajax.php?td_theme_name=Newspaper&v=9.2";
+var td_get_template_directory_uri="https:\/\/laraveldaily.com\/wp-content\/themes\/Newspaper";
+var tds_snap_menu="smart_snap_always";
+var tds_logo_on_sticky="show_header_logo";
+var tds_header_style="";
+var td_please_wait="Please wait...";
+var td_email_user_pass_incorrect="User or password incorrect!";
+var td_email_user_incorrect="Email or username incorrect!";
+var td_email_incorrect="Email incorrect!";
+var tds_more_articles_on_post_enable="";
+var tds_more_articles_on_post_time_to_wait="";
+var tds_more_articles_on_post_pages_distance_from_top=0;
+var tds_theme_color_site_wide="#4db2ec";
+var tds_smart_sidebar="enabled";
+var tdThemeName="Newspaper";
+var td_magnific_popup_translation_tPrev="Previous (Left arrow key)";
+var td_magnific_popup_translation_tNext="Next (Right arrow key)";
+var td_magnific_popup_translation_tCounter="%curr% of %total%";
+var td_magnific_popup_translation_ajax_tError="The content from %url% could not be loaded.";
+var td_magnific_popup_translation_image_tError="The image #%curr% could not be loaded.";
+var tdDateNamesI18n={"month_names":["January","February","March","April","May","June","July","August","September","October","November","December"],"month_names_short":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"day_names":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"day_names_short":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]};
+var td_ad_background_click_link="";
+var td_ad_background_click_target="";
+</script>
+
+
+<!-- Header style compiled by theme -->
+
+<style>
+    
+.block-title > span,
+    .block-title > span > a,
+    .block-title > a,
+    .block-title > label,
+    .widgettitle,
+    .widgettitle:after,
+    .td-trending-now-title,
+    .td-trending-now-wrapper:hover .td-trending-now-title,
+    .wpb_tabs li.ui-tabs-active a,
+    .wpb_tabs li:hover a,
+    .vc_tta-container .vc_tta-color-grey.vc_tta-tabs-position-top.vc_tta-style-classic .vc_tta-tabs-container .vc_tta-tab.vc_active > a,
+    .vc_tta-container .vc_tta-color-grey.vc_tta-tabs-position-top.vc_tta-style-classic .vc_tta-tabs-container .vc_tta-tab:hover > a,
+    .td_block_template_1 .td-related-title .td-cur-simple-item,
+    .woocommerce .product .products h2:not(.woocommerce-loop-product__title),
+    .td-subcat-filter .td-subcat-dropdown:hover .td-subcat-more,
+    .td-weather-information:before,
+    .td-weather-week:before,
+    .td_block_exchange .td-exchange-header:before,
+    .td-theme-wrap .td_block_template_3 .td-block-title > *,
+    .td-theme-wrap .td_block_template_4 .td-block-title > *,
+    .td-theme-wrap .td_block_template_7 .td-block-title > *,
+    .td-theme-wrap .td_block_template_9 .td-block-title:after,
+    .td-theme-wrap .td_block_template_10 .td-block-title::before,
+    .td-theme-wrap .td_block_template_11 .td-block-title::before,
+    .td-theme-wrap .td_block_template_11 .td-block-title::after,
+    .td-theme-wrap .td_block_template_14 .td-block-title,
+    .td-theme-wrap .td_block_template_15 .td-block-title:before,
+    .td-theme-wrap .td_block_template_17 .td-block-title:before {
+        background-color: #222222;
+    }
+
+    .woocommerce div.product .woocommerce-tabs ul.tabs li.active {
+    	background-color: #222222 !important;
+    }
+
+    .block-title,
+    .td_block_template_1 .td-related-title,
+    .wpb_tabs .wpb_tabs_nav,
+    .vc_tta-container .vc_tta-color-grey.vc_tta-tabs-position-top.vc_tta-style-classic .vc_tta-tabs-container,
+    .woocommerce div.product .woocommerce-tabs ul.tabs:before,
+    .td-theme-wrap .td_block_template_5 .td-block-title > *,
+    .td-theme-wrap .td_block_template_17 .td-block-title,
+    .td-theme-wrap .td_block_template_17 .td-block-title::before {
+        border-color: #222222;
+    }
+
+    .td-theme-wrap .td_block_template_4 .td-block-title > *:before,
+    .td-theme-wrap .td_block_template_17 .td-block-title::after {
+        border-color: #222222 transparent transparent transparent;
+    }
+    
+    .td-theme-wrap .td_block_template_4 .td-related-title .td-cur-simple-item:before {
+        border-color: #222222 transparent transparent transparent !important;
+    }
+
+    
+    .td-footer-wrapper,
+    .td-footer-wrapper .td_block_template_7 .td-block-title > *,
+    .td-footer-wrapper .td_block_template_17 .td-block-title,
+    .td-footer-wrapper .td-block-title-wrap .td-wrapper-pulldown-filter {
+        background-color: #111111;
+    }
+
+    
+    .td-footer-wrapper::before {
+        background-size: cover;
+    }
+
+    
+    .td-footer-wrapper::before {
+        background-position: center center;
+    }
+
+    
+    .td-footer-wrapper::before {
+        opacity: 0.1;
+    }
+
+
+
+    
+    .td-post-content p,
+    .td-post-content {
+        font-size:18px;
+	
+    }
+    
+    .post blockquote p,
+    .page blockquote p,
+    .td-post-text-content blockquote p {
+        font-family:Verdana, Geneva, sans-serif;
+	font-size:18px;
+	font-style:normal;
+	text-transform:none;
+	
+    }
+    
+    .post .td_quote_box p,
+    .page .td_quote_box p {
+        font-size:20px;
+	
+    }
+    
+    .post .td_pull_quote p,
+    .page .td_pull_quote p {
+        font-size:20px;
+	
+    }
+    
+    .td-post-content li {
+        font-family:Verdana, Geneva, sans-serif;
+	font-size:18px;
+	
+    }
+    
+    .td-post-content h1 {
+        font-size:40px;
+	
+    }
+    
+    .td-post-content h2 {
+        font-size:34px;
+	
+    }
+    
+    .td-post-content h3 {
+        font-size:28px;
+	
+    }
+</style>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-64361490-1');
+</script>
+
+<!-- Button style compiled by theme -->
+
+<style>
+    
+</style>
+
+	<style id="tdw-css-placeholder"></style><link rel="stylesheet" type="text/css" href="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/modal-slidein.css" media="all"><style type="text/css" id=""></style></head>
+
+<body class="post-template-default single single-post postid-142 single-format-standard how-to-use-external-classes-and-php-files-in-laravel-controller global-block-template-1 td-animation-stack-type0 td-full-layout td-js-loaded" itemscope="itemscope" itemtype="https://schema.org/WebPage" style="overflow: auto;">
+
+        <div class="td-scroll-up"><i class="td-icon-menu-up"></i></div>
+    
+    <div class="td-menu-background"></div>
+<div id="td-mobile-nav" style="min-height: 723px;">
+    <div class="td-mobile-container">
+        <!-- mobile menu top section -->
+        <div class="td-menu-socials-wrap">
+            <!-- socials -->
+            <div class="td-menu-socials">
+                
+        <span class="td-social-icon-wrap">
+            <a target="_blank" href="https://www.facebook.com/laraveldaily/" title="Facebook">
+                <i class="td-icon-font td-icon-facebook"></i>
+            </a>
+        </span>
+        <span class="td-social-icon-wrap">
+            <a target="_blank" href="https://twitter.com/dailylaravel" title="Twitter">
+                <i class="td-icon-font td-icon-twitter"></i>
+            </a>
+        </span>
+        <span class="td-social-icon-wrap">
+            <a target="_blank" href="https://www.youtube.com/channel/UCTuplgOBi6tJIlesIboymGA" title="Youtube">
+                <i class="td-icon-font td-icon-youtube"></i>
+            </a>
+        </span>            </div>
+            <!-- close button -->
+            <div class="td-mobile-close">
+                <a href="#"><i class="td-icon-close-mobile"></i></a>
+            </div>
+        </div>
+
+        <!-- login section -->
+                    <div class="td-menu-login-section">
+                
+    <div class="td-guest-wrap">
+        <div class="td-menu-avatar"><div class="td-avatar-container"><img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/a_002.jpg" srcset="https://secure.gravatar.com/avatar/?s=160&amp;d=mm&amp;r=g 2x" class="avatar avatar-80 photo avatar-default" width="80" height="80"></div></div>
+        <div class="td-menu-login"><a id="login-link-mob">Sign in</a></div>
+    </div>
+            </div>
+        
+        <!-- menu section -->
+        <div class="td-mobile-content">
+            <div class="menu-main-menu-container"><ul id="menu-main-menu" class="td-mobile-main-menu"><li id="menu-item-2383" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-first menu-item-2383"><a href="https://laraveldaily.com/">Laravel Tutorials</a></li>
+<li id="menu-item-2384" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2384"><a href="https://laraveldaily.teachable.com/">Laravel Courses</a></li>
+<li id="menu-item-3320" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3320"><a href="https://laraveldaily.com/our-projects/">Our projects and clients</a></li>
+<li id="menu-item-2385" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2385"><a href="https://laraveldaily.com/about-project/">About Author</a></li>
+<li id="menu-item-2465" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2465"><a href="https://laraveldaily.com/contact-us/">Contact – Hire our Team</a></li>
+</ul></div>        </div>
+    </div>
+
+    <!-- register/login section -->
+            <div id="login-form-mobile" class="td-register-section">
+            
+            <div id="td-login-mob" class="td-login-animation td-login-hide-mob">
+            	<!-- close button -->
+	            <div class="td-login-close">
+	                <a href="#" class="td-back-button"><i class="td-icon-read-down"></i></a>
+	                <div class="td-login-title">Sign in</div>
+	                <!-- close button -->
+		            <div class="td-mobile-close">
+		                <a href="#"><i class="td-icon-close-mobile"></i></a>
+		            </div>
+	            </div>
+	            <div class="td-login-form-wrap">
+	                <div class="td-login-panel-title"><span>Welcome!</span>Log into your account</div>
+	                <div class="td_display_err"></div>
+	                <div class="td-login-inputs"><input class="td-login-input" type="text" name="login_email" id="login_email-mob" required=""><label>your username</label></div>
+	                <div class="td-login-inputs"><input class="td-login-input" type="password" name="login_pass" id="login_pass-mob" value="" required=""><label>your password</label></div>
+	                <input type="button" name="login_button" id="login_button-mob" class="td-login-button" value="LOG IN">
+	                <div class="td-login-info-text">
+	                <a href="#" id="forgot-pass-link-mob">Forgot your password?</a>
+	                </div>
+	                
+	                
+	                
+                </div>
+            </div>
+
+            
+            
+            
+            
+            <div id="td-forgot-pass-mob" class="td-login-animation td-login-hide-mob">
+                <!-- close button -->
+	            <div class="td-forgot-pass-close">
+	                <a href="#" class="td-back-button"><i class="td-icon-read-down"></i></a>
+	                <div class="td-login-title">Password recovery</div>
+	            </div>
+	            <div class="td-login-form-wrap">
+	                <div class="td-login-panel-title">Recover your password</div>
+	                <div class="td_display_err"></div>
+	                <div class="td-login-inputs"><input class="td-login-input" type="text" name="forgot_email" id="forgot_email-mob" required=""><label>your email</label></div>
+	                <input type="button" name="forgot_button" id="forgot_button-mob" class="td-login-button" value="Send My Pass">
+                </div>
+            </div>
+        </div>
+    </div>    <div class="td-search-background"></div>
+<div class="td-search-wrap-mob">
+	<div class="td-drop-down-search" aria-labelledby="td-header-search-button">
+		<form method="get" class="td-search-form" action="https://laraveldaily.com/">
+			<!-- close button -->
+			<div class="td-search-close">
+				<a href="#"><i class="td-icon-close-mobile"></i></a>
+			</div>
+			<div role="search" class="td-search-input">
+				<span>Search</span>
+				<input id="td-header-search-mob" type="text" name="s" autocomplete="off">
+			</div>
+		</form>
+		<div id="td-aj-search-mob"></div>
+	</div>
+</div>    
+    
+    <div id="td-outer-wrap" class="td-theme-wrap">
+    
+        <!--
+Header style 1
+-->
+
+
+<div class="td-header-wrap td-header-style-1 ">
+    
+    <div class="td-header-top-menu-full td-container-wrap ">
+        <div class="td-container td-header-row td-header-top-menu">
+            <!-- LOGIN MODAL -->
+
+                <div id="login-form" class="white-popup-block mfp-hide mfp-with-anim">
+                    <div class="td-login-wrap">
+                        <a href="#" class="td-back-button"><i class="td-icon-modal-back"></i></a>
+                        <div id="td-login-div" class="td-login-form-div td-display-block">
+                            <div class="td-login-panel-title">Sign in</div>
+                            <div class="td-login-panel-descr">Welcome! Log into your account</div>
+                            <div class="td_display_err"></div>
+                            <div class="td-login-inputs"><input class="td-login-input" type="text" name="login_email" id="login_email" required=""><label>your username</label></div>
+	                        <div class="td-login-inputs"><input class="td-login-input" type="password" name="login_pass" id="login_pass" value="" required=""><label>your password</label></div>
+                            <input type="button" name="login_button" id="login_button" class="wpb_button btn td-login-button" value="Login">
+                            <div class="td-login-info-text"><a href="#" id="forgot-pass-link">Forgot your password? Get help</a></div>
+                            
+                            
+                            
+                            
+                        </div>
+
+                        
+
+                         <div id="td-forgot-pass-div" class="td-login-form-div td-display-none">
+                            <div class="td-login-panel-title">Password recovery</div>
+                            <div class="td-login-panel-descr">Recover your password</div>
+                            <div class="td_display_err"></div>
+                            <div class="td-login-inputs"><input class="td-login-input" type="text" name="forgot_email" id="forgot_email" required=""><label>your email</label></div>
+                            <input type="button" name="forgot_button" id="forgot_button" class="wpb_button btn td-login-button" value="Send My Password">
+                            <div class="td-login-info-text">A password will be e-mailed to you.</div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                        </div>
+    </div>
+
+    <div class="td-banner-wrap-full td-logo-wrap-full td-container-wrap ">
+        <div class="td-container td-header-row td-header-header">
+            <div class="td-header-sp-logo">
+                            <a class="td-main-logo" href="https://laraveldaily.com/">
+                <img src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/laravel-daily-2.png" alt="">
+                <span class="td-visual-hidden">Laravel Daily</span>
+            </a>
+                    </div>
+                            <div class="td-header-sp-recs">
+                    <div class="td-header-rec-wrap">
+    <div class="td-a-rec td-a-rec-id-header  td_uid_1_5f3eddd689aab_rand td_block_template_1"><div class="td-all-devices"><a href="https://laraveldaily.com/weekly-laravel-newsletter?utm_source=internal&amp;utm_campaign=top_banner"><img src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/laravel-articles.png"></a></div></div>
+</div>                </div>
+                    </div>
+    </div>
+
+    <div class="td-header-menu-wrap-full td-container-wrap " style="height: 48px;">
+        
+        <div class="td-header-menu-wrap td-header-gradient" style="transform: translate3d(0px, 0px, 0px);">
+            <div class="td-container td-header-row td-header-main-menu">
+                <div id="td-header-menu" role="navigation">
+    <div id="td-top-mobile-toggle"><a href="#"><i class="td-icon-font td-icon-mobile"></i></a></div>
+    <div class="td-main-menu-logo td-logo-in-header td-logo-sticky">
+        		<a class="td-mobile-logo td-sticky-header" href="https://laraveldaily.com/">
+			<img src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/laravel-daily-2.png" alt="">
+		</a>
+			<a class="td-header-logo td-sticky-header" href="https://laraveldaily.com/">
+			<img src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/laravel-daily-2.png" alt="">
+		</a>
+	    </div>
+    <div class="menu-main-menu-container"><ul id="menu-main-menu-1" class="sf-menu sf-js-enabled"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-first td-menu-item td-normal-menu menu-item-2383"><a href="https://laraveldaily.com/">Laravel Tutorials</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom td-menu-item td-normal-menu menu-item-2384"><a href="https://laraveldaily.teachable.com/">Laravel Courses</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-3320"><a href="https://laraveldaily.com/our-projects/">Our projects and clients</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-2385"><a href="https://laraveldaily.com/about-project/">About Author</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-2465"><a href="https://laraveldaily.com/contact-us/">Contact – Hire our Team</a></li>
+</ul></div></div>
+
+
+    <div class="header-search-wrap">
+        <div class="td-search-btns-wrap">
+            <a id="td-header-search-button" href="#" role="button" class="dropdown-toggle " data-toggle="dropdown"><i class="td-icon-search"></i></a>
+            <a id="td-header-search-button-mob" href="#" role="button" class="dropdown-toggle " data-toggle="dropdown"><i class="td-icon-search"></i></a>
+        </div>
+
+        <div class="td-drop-down-search" aria-labelledby="td-header-search-button">
+            <form method="get" class="td-search-form" action="https://laraveldaily.com/">
+                <div role="search" class="td-head-form-search-wrap">
+                    <input id="td-header-search" type="text" name="s" autocomplete="off"><input class="wpb_button wpb_btn-inverse btn" type="submit" id="td-header-search-top" value="Search">
+                </div>
+            </form>
+            <div id="td-aj-search"></div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+
+</div><div class="td-main-content-wrap td-container-wrap">
+
+    <div class="td-container td-post-template-default ">
+        <div class="td-crumb-container"></div>
+
+        <div class="td-pb-row">
+                                    <div class="td-pb-span8 td-main-content" role="main">
+                            <div class="td-ss-main-content"><div class="clearfix"></div>
+                                
+    <article id="post-142" class="post-142 post type-post status-publish format-standard has-post-thumbnail hentry category-tutorials" itemscope="" itemtype="https://schema.org/Article">
+        <div class="td-post-header">
+
+            
+            <header class="td-post-title">
+                <h1 class="entry-title">How to use external classes and PHP files in Laravel Controller?</h1>
+
+                
+
+                <div class="td-module-meta-info">
+                                        <span class="td-post-date td-post-date-no-dot"><time class="entry-date updated td-module-date" datetime="2015-07-28T12:17:28+00:00">July 28, 2015</time></span>                                                        </div>
+
+            </header>
+
+        </div>
+
+        
+
+        <div class="td-post-content">
+
+        
+        
+<p>Laravel is an MVC framework with its own folder structure, but 
+sometimes we want to use something external which doesn’t follow the 
+same structure. Let’s review two different scenarios – when we have 
+external <b>class</b> and when it’s just a <b>.php file</b>.</p>
+
+
+
+<p>Let’s say we have a simple example, a <b>PagesController.php</b> file like this:</p>
+
+
+
+<pre class="wp-block-preformatted">namespace App\Http\Controllers;
+
+class PagesController extends Controller
+{
+  /**
+   * Display homepage.
+   *
+   * @return Response
+   */
+  public function getHome()
+  {
+    return view('pages.home');
+  }
+
+}</pre>
+
+
+
+<p>Pretty simple, right? Now, let’s say we want to have our product <b>prices</b> on the homepage, but they come from some kind of external class or PHP file. </p>
+
+
+
+<h2>Use an external class in Controller</h2>
+
+
+
+<p>Let’s say we have a simple class to define the prices:</p>
+
+
+
+<pre class="wp-block-preformatted">class PricesClass {
+  public function getPrices() {
+    return ['bronze' =&gt; 50, 'silver' =&gt; 100, 'gold' =&gt; 150];
+  }
+}</pre>
+
+
+
+<p>Now, where to put this class and how to use it? A couple of steps here:</p>
+
+
+
+<p><b>1. You can put a class itself anywhere you want within <b>\App</b> folder</b></p>
+
+
+
+<p>By default, Laravel offers you some folders there like <b>Providers</b>, but I personally prefer to create a separate one – like <b>App\Libraries</b>, <b>App\Classes</b> or <b>App\Services</b>. Or you can call it your own application – <b>App\MyApp</b>. This is totally your choice.</p>
+
+
+
+<p>So, in this example, let’s save the class as <b>App\Classes\PricesClass.php</b>.</p>
+
+
+
+<p><b>2. Namespace within the file</b></p>
+
+
+
+<p>Now we have to tell Laravel what is the namespace of this new file – it’s the same as the folder:</p>
+
+
+
+<pre class="wp-block-code"><code>namespace App\Classes;
+
+class PricesClass {
+// ...</code></pre>
+
+
+
+<p><strong>3. Use the class in your Controller</strong></p>
+
+
+
+<p>Let’s get back to our <strong>PagesController.php</strong> – here we have to add <strong>use</strong> statement for that external class, and then we’re free to use it! Like this:</p>
+
+
+
+<pre class="wp-block-code"><code>namespace App\Http\Controllers;
+
+use App\Classes\PricesClass;
+
+class PagesController extends Controller
+{
+  /**
+   * Display homepage.
+   *
+   * @return Response
+   */
+  public function getHome()
+  {
+    $pricesClass = new PricesClass();
+    $prices = $pricesClass-&gt;getPrices();
+    return view('pages.home', compact('prices'));
+  }
+
+}</code></pre>
+
+
+
+<p>That’s it, nothing more complicated than that.</p>
+<div style="font-style:italic; text-align:center; padding:10px; background-color: #faf5e1; border: 1px dashed #999; margin-bottom:20px">Have you tried our tool to generate Laravel adminpanel without a line of code?<br>
+Go to <a href="https://quickadminpanel.com/">QuickAdminPanel.com</a>
+</div>
+<h2>Use an external PHP file in Controller</h2>
+<p>Another case – it’s not always an OOP file that we want to use. For 
+some cases it’s just a list of functions. Of course, we can wrap them in
+ a class as well, but not always. So, how to use the same function, if 
+we just have a <b>prices.php</b> file like this:</p>
+<pre>function getPrices() {
+  return ['bronze' =&gt; 50, 'silver' =&gt; 100, 'gold' =&gt; 150];
+}</pre>
+<p>And that’s it – no class, no namespace, nothing.<br>
+Let’s place our function as <b>app/functions/prices.php</b> file. Then – we have <b>three different</b> ways of include it:</p>
+<p><b>1. Just include</b> the class with PHP functions like <b>include()</b> or <b>require()</b> – and don’t forget app_path() function:</p>
+<pre>public function getHome()
+{
+  include(app_path() . '\functions\prices.php');
+  $prices = getPrices();
+  // ...</pre>
+<p>Note that you still need a slash symbol before the folder <b>functions</b>.<br>
+You can read more about <b>app_path()</b> and other Helper functions <a href="http://laravel.com/docs/5.1/helpers" target="_blank">in the official documentation</a>.</p>
+<p><b>2. In composer.json</b> file you just add needed files in <b>“autoload”</b> section – in a new entry called <b>“files”</b>:<br>
+<em>(thanks for this suggestion to the commenters Joseph and Hisham)</em></p>
+<pre>    "autoload": {
+        "classmap": [
+            "database"
+        ],
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "app/functions/prices.php"
+        ]
+    },
+</pre>
+<p>This way you don’t need to use any <b>include()</b> functions anywhere within your controllers – just use the functions straight away.</p>
+<p><b>3. Autoload the whole folder in composer.json</b><br>
+<em>(thanks to YOzaz for pointing this out in comments)</em></p>
+<p>Another way is just autoload the folder with that file – so you would
+ place any similar external “helpers” in that folder, and that would be 
+included in the future. In this case – add this folder in array or <b>“classmap”</b>:</p>
+<pre>    "autoload": {
+        "classmap": [
+            "database",
+            "app/functions"
+        ],
+    },
+</pre>
+<p>Choose this option if you want those files to be included in a manner of “set it and forget it”.</p>
+<p><b>Notice:</b> if you make these changes to <b>composer.json</b> file, don’t forget to run <b>composer dump-autoload</b> for changes to take effect.</p>
+<div class="widget_text td_block_template_1 awac-wrapper"><div class="widget_text td_block_template_1 awac widget custom_html-2"><div class="textwidget custom-html-widget"><div style="margin-top: 15px; border: 1px solid #CCC; padding: 10px; background-color: #F7F7F7; font-size: 24px; text-align:center">
+	Like our articles?<br>Check out our <a href="https://laraveldaily.teachable.com/?utm_source=laraveldaily&amp;utm_campaign=post_footer" target="_blank">Laravel online courses!</a>
+</div></div></div></div>        </div>
+
+
+        <footer>
+                        
+            <div class="td-post-source-tags">
+                                            </div>
+
+            <div class="td-post-sharing-bottom"><div id="td_social_sharing_article_bottom" class="td-post-sharing td-ps-bg td-ps-notext td-post-sharing-style1 "><div class="td-post-sharing-visible"><div class="td-social-sharing-button td-social-sharing-button-js td-social-handler td-social-share-text" style="transition: opacity 0.2s ease 0s; opacity: 1;">
+                                        <div class="td-social-but-icon"><i class="td-icon-share"></i></div>
+                                        <div class="td-social-but-text">Share</div>
+                                    </div><a class="td-social-sharing-button td-social-sharing-button-js td-social-network td-social-facebook" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Flaraveldaily.com%2Fhow-to-use-external-classes-and-php-files-in-laravel-controller%2F" style="transition: opacity 0.2s ease 0s; opacity: 1;">
+                                        <div class="td-social-but-icon"><i class="td-icon-facebook"></i></div>
+                                        <div class="td-social-but-text">Facebook</div>
+                                    </a><a class="td-social-sharing-button td-social-sharing-button-js td-social-network td-social-twitter" href="https://twitter.com/intent/tweet?text=How+to+use+external+classes+and+PHP+files+in+Laravel+Controller%3F&amp;url=https%3A%2F%2Flaraveldaily.com%2Fhow-to-use-external-classes-and-php-files-in-laravel-controller%2F&amp;via=DailyLaravel" style="transition: opacity 0.2s ease 0s; opacity: 1;">
+                                        <div class="td-social-but-icon"><i class="td-icon-twitter"></i></div>
+                                        <div class="td-social-but-text">Twitter</div>
+                                    </a><a class="td-social-sharing-button td-social-sharing-button-js td-social-network td-social-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://laraveldaily.com/how-to-use-external-classes-and-php-files-in-laravel-controller/&amp;title=How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller?" style="transition: opacity 0.2s ease 0s; opacity: 1;">
+                                        <div class="td-social-but-icon"><i class="td-icon-linkedin"></i></div>
+                                        <div class="td-social-but-text">Linkedin</div>
+                                    </a></div><div class="td-social-sharing-hidden" style="display: none;"><ul class="td-pulldown-filter-list"></ul><a class="td-social-sharing-button td-social-handler td-social-expand-tabs" href="#" data-block-uid="td_social_sharing_article_bottom">
+                                    <div class="td-social-but-icon"><i class="td-icon-plus td-social-expand-tabs-icon"></i></div>
+                                </a></div></div></div>                        <div class="author-box-wrap"><a href="https://laraveldaily.com/author/povilas/"><img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/1653e999074ac526727ad5f84c1e563b.jpg" srcset="https://secure.gravatar.com/avatar/1653e999074ac526727ad5f84c1e563b?s=192&amp;d=mm&amp;r=g 2x" class="avatar avatar-96 photo td-animation-stack-type0-2" width="96" height="96"></a><div class="desc"><div class="td-author-name vcard author"><span class="fn"><a href="https://laraveldaily.com/author/povilas/">Povilas Korop</a></span></div><div class="td-author-description">PHP web-developer with 15 years experience, 5 years with Laravel. 
+Now leading a small team of developers, growing Laravel adminpanel generator <a href="https://quickadminpanel.com/?utm_source=laraveldaily&amp;utm_campaign=author_banner">QuickAdminPanel</a> and publishing Laravel courses on <a href="https://laraveldaily.teachable.com/?utm_source=laraveldaily&amp;utm_campaign=author_banner">Teachable</a>.</div><div class="td-author-social">
+        <span class="td-social-icon-wrap">
+            <a target="_blank" href="https://www.linkedin.com/in/povilas-korop-4735aa54/" title="Linkedin">
+                <i class="td-icon-font td-icon-linkedin"></i>
+            </a>
+        </span>
+        <span class="td-social-icon-wrap">
+            <a target="_blank" href="https://twitter.com/povilaskorop" title="Twitter">
+                <i class="td-icon-font td-icon-twitter"></i>
+            </a>
+        </span></div><div class="clearfix"></div></div></div>	        <span class="td-page-meta" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><meta itemprop="name" content="Povilas Korop"></span><meta itemprop="datePublished" content="2015-07-28T12:17:28+00:00"><meta itemprop="dateModified" content="2018-12-26T15:31:48+00:00"><meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="https://laraveldaily.com/how-to-use-external-classes-and-php-files-in-laravel-controller/"><span class="td-page-meta" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization"><span class="td-page-meta" itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="https://laraveldaily.com/wp-content/uploads/2018/12/laravel-daily-2.png"></span><meta itemprop="name" content="Laravel Daily"></span><meta itemprop="headline " content="How to use external classes and PHP files in Laravel Controller?">        </footer>
+
+    </article> <!-- /.post -->
+
+    
+	<div class="comments" id="comments">
+        
+            <div class="td-comments-title-wrap td_block_template_1">
+                <h4 class="td-comments-title block-title"><span>25 COMMENTS</span></h4>
+            </div>
+
+		        <ol class="comment-list ">
+                            <li class="comment " id="comment-59">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/061dbecb6643f2f75580d4ea57853674.png" srcset="https://secure.gravatar.com/avatar/061dbecb6643f2f75580d4ea57853674?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite>Joseph Silber</cite>
+
+                    <a class="comment-link" href="#comment-59">
+                        <time pubdate="1438090926">July 28, 2015 at 1:42 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>…or use composer’s “files” autoload, like it’s 2015.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-59">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-59" onclick='return addComment.moveForm( "comment-59", "59", "respond", "142" )' aria-label="Reply to Joseph Silber">Reply</a>                </div>
+            </article>
+    <ul class="children">
+        <li class="comment " id="comment-61">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/1653e999074ac526727ad5f84c1e563b_002.jpg" srcset="https://secure.gravatar.com/avatar/1653e999074ac526727ad5f84c1e563b?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://www.laraveldaily.com/" rel="external nofollow" class="url">Povilas Korop</a></cite>
+
+                    <a class="comment-link" href="#comment-61">
+                        <time pubdate="1438091495">July 28, 2015 at 1:51 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Thanks for the feedback, right, will update the article with Composer-way shortly.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-61">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-61" onclick='return addComment.moveForm( "comment-61", "61", "respond", "142" )' aria-label="Reply to Povilas Korop">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment " id="comment-60">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/5909487d7c0eee17816349e2e0c8f8a5.jpg" srcset="https://secure.gravatar.com/avatar/5909487d7c0eee17816349e2e0c8f8a5?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://www.facebook.com/" rel="external nofollow" class="url">Hisham</a></cite>
+
+                    <a class="comment-link" href="#comment-60">
+                        <time pubdate="1438091345">July 28, 2015 at 1:49 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>hmm composer files autoloader is better</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-60">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-60" onclick='return addComment.moveForm( "comment-60", "60", "respond", "142" )' aria-label="Reply to Hisham">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-62">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/1653e999074ac526727ad5f84c1e563b_002.jpg" srcset="https://secure.gravatar.com/avatar/1653e999074ac526727ad5f84c1e563b?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://www.laraveldaily.com/" rel="external nofollow" class="url">Povilas Korop</a></cite>
+
+                    <a class="comment-link" href="#comment-62">
+                        <time pubdate="1438098495">July 28, 2015 at 3:48 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Updated the article with composer files option – thanks again for flagging that, Joseph and Hisham.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-62">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-62" onclick='return addComment.moveForm( "comment-62", "62", "respond", "142" )' aria-label="Reply to Povilas Korop">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-64">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/0203b51a9108001d7f1b147f4a2ea965.png" srcset="https://secure.gravatar.com/avatar/0203b51a9108001d7f1b147f4a2ea965?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://www.krucas.lt/" rel="external nofollow" class="url">Edvinas Kručas</a></cite>
+
+                    <a class="comment-link" href="#comment-64">
+                        <time pubdate="1438150484">July 29, 2015 at 6:14 am</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Nice post. In my opinion composer autoloading is 
+better than file inclusion in controllers. File inclusion with “require”
+ can be used when included file returns some values, like config files 
+in Laravel.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-64">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-64" onclick='return addComment.moveForm( "comment-64", "64", "respond", "142" )' aria-label="Reply to Edvinas Kručas">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-65">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/327d9c2f008bf7dc348bc708b326557d.jpg" srcset="https://secure.gravatar.com/avatar/327d9c2f008bf7dc348bc708b326557d?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="#" rel="external nofollow" class="url">YOzaz</a></cite>
+
+                    <a class="comment-link" href="#comment-65">
+                        <time pubdate="1438158329">July 29, 2015 at 8:25 am</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Povilas, it’s better to use class autoload instead of files autoload in composer – more flexible.</p>
+<p>“classmap”: [<br>
+“app/functions/my”<br>
+]</p>
+<p>Then all custom files can be placed in “my” folder and will be loaded
+ automaticaly. No need to specify additional files when they are created
+ by modifying composer.json.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-65">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-65" onclick='return addComment.moveForm( "comment-65", "65", "respond", "142" )' aria-label="Reply to YOzaz">Reply</a>                </div>
+            </article>
+    <ul class="children">
+        <li class="comment " id="comment-66">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/1653e999074ac526727ad5f84c1e563b_002.jpg" srcset="https://secure.gravatar.com/avatar/1653e999074ac526727ad5f84c1e563b?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://www.laraveldaily.com/" rel="external nofollow" class="url">Povilas Korop</a></cite>
+
+                    <a class="comment-link" href="#comment-66">
+                        <time pubdate="1438159438">July 29, 2015 at 8:43 am</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Great extra tip, YOzaz, will add it to the article later.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-66">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-66" onclick='return addComment.moveForm( "comment-66", "66", "respond", "142" )' aria-label="Reply to Povilas Korop">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-18796">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/a39442aee195135cfae23474f4bdf787.png" srcset="https://secure.gravatar.com/avatar/a39442aee195135cfae23474f4bdf787?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite>Adan Luna</cite>
+
+                    <a class="comment-link" href="#comment-18796">
+                        <time pubdate="1478551107">November 7, 2016 at 8:38 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Nice trick! I used to add an composer download class an it works! thanks man!</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-18796">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-18796" onclick='return addComment.moveForm( "comment-18796", "18796", "respond", "142" )' aria-label="Reply to Adan Luna">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-25061">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/a1fd8bd2155ae33f4a79f727bcbf79b2.jpg" srcset="https://secure.gravatar.com/avatar/a1fd8bd2155ae33f4a79f727bcbf79b2?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite>Mrrrz</cite>
+
+                    <a class="comment-link" href="#comment-25061">
+                        <time pubdate="1489826939">March 18, 2017 at 8:48 am</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Hi, I’m new to laravel.  Can someone clarify 
+this….If I used YOzaz’s suggestion to use class autoload, then does that
+ mean I wouldn’t have to use “use App\Classes\PricesClass;” in my 
+controller at all?  And, how does the controller know where to look for 
+the class?  And doesn’t it slow the execution of the code if you have 
+many folders to autoload, because the controller has to look for the 
+right class in all those folders?</p>
+<p>Also, let’s say you have 2 different php SDKs that you want to 
+include in your project, for example FB and Twitter.  What if they both 
+had the same class names (I know they don’t, but if you use some less 
+known applications they could be using generic names for their classes. 
+ For example instead of FacebookClass, it could be CustomClass), and you
+ placed both of them in the autoload, then how would the controller know
+ which one you are trying to call if they have the same name but are 
+located in different folders?</p>
+<p>Also, let’s say I created a folder in App\ directory called Services,
+ then I put different SDKs inside of it (e.g: FB, Twitter, etc…).   If I
+ use class autoload in composer do I only list the top directory like 
+this: </p>
+<p>    “classmap”: [<br>
+         “app/services”<br>
+      ]</p>
+<p>or do I have to list every folder inside the services folder, like this:</p>
+<p>      “classmap”: [<br>
+           “app/services/fb”,<br>
+           “app/services/twitter”,<br>
+       ]</p>
+<p>If it is the first one (“app/services”), then how does the controller know where to look for the class?  </p>
+<p>thanks</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-25061">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-25061" onclick='return addComment.moveForm( "comment-25061", "25061", "respond", "142" )' aria-label="Reply to Mrrrz">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-42531">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/0f1e733c454f29a15b3696dc7853040d.jpg" srcset="https://secure.gravatar.com/avatar/0f1e733c454f29a15b3696dc7853040d?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite>Tuhin Paul</cite>
+
+                    <a class="comment-link" href="#comment-42531">
+                        <time pubdate="1503747833">August 26, 2017 at 11:43 am</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>This doesn’t work for functions. Although this comment is 2 years late but better late than never.<br>
+“classmap” only autoloads classes. If your function is offered as method
+ of a class it is fine but a standalone function won’t autoload. This is
+ confirmed in the official documentation of composer: <a href="https://getcomposer.org/doc/04-schema.md#classmap" rel="nofollow">https://getcomposer.org/doc/04-schema.md#classmap</a></p>
+<p>What I do is autoload a php file in functions folder using “files” key of composer. The file contains<br>
+require_once(‘functionOne.php’); require_once(‘functionTwo.php’); …. so on.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-42531">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-42531" onclick='return addComment.moveForm( "comment-42531", "42531", "respond", "142" )' aria-label="Reply to Tuhin Paul">Reply</a>                </div>
+            </article>
+    <ul class="children">
+        <li class="comment " id="comment-68349">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/3a63342b85e02eff0ff72c2778bbba62.jpg" srcset="https://secure.gravatar.com/avatar/3a63342b85e02eff0ff72c2778bbba62?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite>ruslanashaari</cite>
+
+                    <a class="comment-link" href="#comment-68349">
+                        <time pubdate="1519114244">February 20, 2018 at 8:10 am</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Hi Tuhin, just want to say thanks. I come across 
+this problem some time ago, so I’m a bit confused to see the classmap 
+suggestion. Little did I know it was because I’m using standalone 
+functions instead of classes.</p>
+<p>Thanks again for the knowledge.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-68349">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-68349" onclick='return addComment.moveForm( "comment-68349", "68349", "respond", "142" )' aria-label="Reply to ruslanashaari">Reply</a>                </div>
+            </article>
+    <ul class="children">
+        <li class="comment " id="comment-68359">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/0f1e733c454f29a15b3696dc7853040d.jpg" srcset="https://secure.gravatar.com/avatar/0f1e733c454f29a15b3696dc7853040d?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite>Tuhin Paul</cite>
+
+                    <a class="comment-link" href="#comment-68359">
+                        <time pubdate="1519124113">February 20, 2018 at 10:55 am</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Hi Ruslanashaari, you might prefer ‘Traits’ over standalone functions. <a href="http://php.net/manual/en/language.oop5.traits.php" rel="nofollow">http://php.net/manual/en/language.oop5.traits.php</a>. A need for copy pasting a piece of code is a good candidate for turning it into trait.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-68359">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-68359" onclick='return addComment.moveForm( "comment-68359", "68359", "respond", "142" )' aria-label="Reply to Tuhin Paul">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment " id="comment-77">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/2ca9d9ef61ddfcb2a56a3f68fd26a234.jpg" srcset="https://secure.gravatar.com/avatar/2ca9d9ef61ddfcb2a56a3f68fd26a234?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite>Ivan Nikulin</cite>
+
+                    <a class="comment-link" href="#comment-77">
+                        <time pubdate="1438612043">August 3, 2015 at 2:27 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Greate article; however, I think it is more laravel-way to use DI for adding various classes in controller.</p>
+<p>For instance, if you want to inject object just use class constructor with class-hinting.<br>
+class PagesController extends Controller {<br>
+    private $pricesClass;<br>
+    public function __constructor(\App\Classes\PricesClass $pricesClass) {<br>
+        $this-&gt;pricesClass = $pricesClass;<br>
+    }<br>
+}</p>
+<p>Another way is to access class through laravel container:<br>
+class PagesController extends Controller {<br>
+    public function getHome() {<br>
+        $pricesClass = app(‘\App\Classes\PricesClass’);<br>
+        $prices = $pricesClass-&gt;getPrices();<br>
+        return view(‘pages.home’, compact(‘prices’));<br>
+    }<br>
+}</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-77">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-77" onclick='return addComment.moveForm( "comment-77", "77", "respond", "142" )' aria-label="Reply to Ivan Nikulin">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment pingback" id="comment-1129">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/a.jpg" srcset="https://secure.gravatar.com/avatar/?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo avatar-default" width="50" height="50">                    <cite><a href="http://phpgrid.com/example/phpgrid-laravel-5-and-bootstrap-3-part-ii-improved-version/" rel="external nofollow" class="url">phpGrid, Laravel 5 Integration - Part II (Improved version) | phpGrid</a></cite>
+
+                    <a class="comment-link" href="#comment-1129">
+                        <time pubdate="1447769262">November 17, 2015 at 2:07 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>[…] reference: <a href="http://laraveldaily.com/how-to-use-external-classes-and-php-files-in-laravel-controller/" rel="nofollow">http://laraveldaily.com/how-to-use-external-classes-and-php-files-in-laravel-controller/</a> […]</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-1129">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-1129" onclick='return addComment.moveForm( "comment-1129", "1129", "respond", "142" )' aria-label="Reply to phpGrid, Laravel 5 Integration - Part II (Improved version) | phpGrid">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-7682">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/fc1db3edfb73b34e0fad9922beca0cdc.jpg" srcset="https://secure.gravatar.com/avatar/fc1db3edfb73b34e0fad9922beca0cdc?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://www.foreigncitizen.co.za/" rel="external nofollow" class="url">Ken Fukizi</a></cite>
+
+                    <a class="comment-link" href="#comment-7682">
+                        <time pubdate="1456914146">March 2, 2016 at 10:22 am</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Would you know why after adding my external file 
+to composer.json and dump autoload, I am able to access functions 
+defined in the added file without a problem, but I am getting a Call to a
+ member function make() on null …helpers.php line 62 ?</p>
+<p>The helpers line suggests that the function app make is not able to 
+get an instance of my file…does this make sense since I am able to call 
+and use a function within my external file?</p>
+<p>Any pointers? Anyone?</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-7682">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-7682" onclick='return addComment.moveForm( "comment-7682", "7682", "respond", "142" )' aria-label="Reply to Ken Fukizi">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-12781">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/8bc89be4cc5d3014702ab3a5f2bdd93f.jpg" srcset="https://secure.gravatar.com/avatar/8bc89be4cc5d3014702ab3a5f2bdd93f?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://test/" rel="external nofollow" class="url">sejda</a></cite>
+
+                    <a class="comment-link" href="#comment-12781">
+                        <time pubdate="1462885735">May 10, 2016 at 1:08 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>i want to use mage.php  from magento in laravel i
+ follow those steps but i always have the same error 
+“include_once(Mage/Core/functions.php): failed to open stream: No such 
+file or directory” how can i resolve this please</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-12781">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-12781" onclick='return addComment.moveForm( "comment-12781", "12781", "respond", "142" )' aria-label="Reply to sejda">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-14749">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/da36d5c1ef9ceece01e07f1f8475f89c.jpg" srcset="https://secure.gravatar.com/avatar/da36d5c1ef9ceece01e07f1f8475f89c?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://winwinsp.com/" rel="external nofollow" class="url">Mohammad Belal Hossain</a></cite>
+
+                    <a class="comment-link" href="#comment-14749">
+                        <time pubdate="1467181954">June 29, 2016 at 6:32 am</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Hello, thanks for the nice article. I found one 
+problem when make a helper class file and use it as autoload. How can I 
+confirm a class file is accessible from both Controller and View files, 
+if I autoload a file. Any guide will be appreciable.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-14749">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-14749" onclick='return addComment.moveForm( "comment-14749", "14749", "respond", "142" )' aria-label="Reply to Mohammad Belal Hossain">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-16061">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/0d3634138740cf31fd55e7ec1ddde2c5.jpg" srcset="https://secure.gravatar.com/avatar/0d3634138740cf31fd55e7ec1ddde2c5?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite>Abu</cite>
+
+                    <a class="comment-link" href="#comment-16061">
+                        <time pubdate="1472329554">August 27, 2016 at 8:25 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Method 1 Use an old-style external PHP file in Controller is cool.<br>
+No hassle in using non-namespace classes.</p>
+<p>I used this to use my class in laravel.<br>
+include(app_path() . ‘\Libs\myclass.php’);<br>
+$obj = new \myClass();<br>
+…</p>
+<p>If you think to migrate to latest laravel, things are very much over-complicated.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-16061">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-16061" onclick='return addComment.moveForm( "comment-16061", "16061", "respond", "142" )' aria-label="Reply to Abu">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-18305">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/bf6dd3dba08c4c80b3c099cac60fc8df.jpg" srcset="https://secure.gravatar.com/avatar/bf6dd3dba08c4c80b3c099cac60fc8df?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite>henry</cite>
+
+                    <a class="comment-link" href="#comment-18305">
+                        <time pubdate="1477635838">October 28, 2016 at 6:23 am</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Hello, sir<br>
+Can I translate your article to my gitbook ?<br>
+(<a href="https://henry255164.gitbooks.io/laravel_reviews/content/chapter10.html" rel="nofollow">https://henry255164.gitbooks.io/laravel_reviews/content/chapter10.html</a>)</p>
+<p>thanks for your sharing.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-18305">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-18305" onclick='return addComment.moveForm( "comment-18305", "18305", "respond", "142" )' aria-label="Reply to henry">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-23193">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/1f7ebaec87b8beda8e998baf2b8f779d.jpg" srcset="https://secure.gravatar.com/avatar/1f7ebaec87b8beda8e998baf2b8f779d?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://none/" rel="external nofollow" class="url">Travis Jansen</a></cite>
+
+                    <a class="comment-link" href="#comment-23193">
+                        <time pubdate="1485955215">February 1, 2017 at 1:20 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>I’m a little late to the party, but this article 
+is just the thing I needed.  I’d prefer to use Laravel’s auto-include 
+voodoo, but I like to know the whole story in case I ever do want to do a
+ manual include such as this.   Sometimes being a little more explicit 
+for a minor inconvenience can be a good thing for more readable code.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-23193">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-23193" onclick='return addComment.moveForm( "comment-23193", "23193", "respond", "142" )' aria-label="Reply to Travis Jansen">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-24377">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/48d44065ac0c0062486b4937c033a73a.jpg" srcset="https://secure.gravatar.com/avatar/48d44065ac0c0062486b4937c033a73a?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://www.quickmorelia.com/bitacora/" rel="external nofollow" class="url">Alejandro Javier Villalón Navarro</a></cite>
+
+                    <a class="comment-link" href="#comment-24377">
+                        <time pubdate="1488663966">March 4, 2017 at 9:46 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Hello my friend, first of all I want to congratulate you for your excellent article, it helped me a lot, I have a big doubt,</p>
+<p>If I add my classes in a folder called Libraries, and I put the 
+classes in the composer.json file, in classmap the class folder, are all
+ these classes loaded on all the pages I use?<br>
+Or are they only loaded when they are used?<br>
+I ask for optimization of the application.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-24377">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-24377" onclick='return addComment.moveForm( "comment-24377", "24377", "respond", "142" )' aria-label="Reply to Alejandro Javier Villalón Navarro">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-26895">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/7c3af6bec3d2a1115b298fb62b84ecf3.jpg" srcset="https://secure.gravatar.com/avatar/7c3af6bec3d2a1115b298fb62b84ecf3?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://www.techyfeed.blogspot.com/" rel="external nofollow" class="url">Misterwyz</a></cite>
+
+                    <a class="comment-link" href="#comment-26895">
+                        <time pubdate="1493655694">May 1, 2017 at 4:21 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Thanks, the first solution works perfectly. I 
+don’t need to autoload as it is only useful in one method and in one 
+controller. God bless you for helping out the community.</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-26895">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-26895" onclick='return addComment.moveForm( "comment-26895", "26895", "respond", "142" )' aria-label="Reply to Misterwyz">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-61838">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/b4aec9153a7b7ad707085060cd0d480e.jpg" srcset="https://secure.gravatar.com/avatar/b4aec9153a7b7ad707085060cd0d480e?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="http://none/" rel="external nofollow" class="url">Martin</a></cite>
+
+                    <a class="comment-link" href="#comment-61838">
+                        <time pubdate="1515678407">January 11, 2018 at 1:46 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>I receive this error : Class 
+‘App\Messages\Exception’ not found. Any ideas why? I am using laravel 
+5.4. I have created app\Messages..</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-61838">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-61838" onclick='return addComment.moveForm( "comment-61838", "61838", "respond", "142" )' aria-label="Reply to Martin">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-86003">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/c2b531768e1ba5bc1daf85dc5ffa5554.jpg" srcset="https://secure.gravatar.com/avatar/c2b531768e1ba5bc1daf85dc5ffa5554?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite>faridul khan</cite>
+
+                    <a class="comment-link" href="#comment-86003">
+                        <time pubdate="1539433014">October 13, 2018 at 12:16 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>simple but awesome tutorial</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-86003">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-86003" onclick='return addComment.moveForm( "comment-86003", "86003", "respond", "142" )' aria-label="Reply to faridul khan">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment " id="comment-90745">
+			<article>
+	            <footer>
+                    <img alt="" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/96849d777b14fcb04018780f24dbd804.jpg" srcset="https://secure.gravatar.com/avatar/96849d777b14fcb04018780f24dbd804?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" width="50" height="50">                    <cite><a href="https://warm-fortress-51569.herokuapp.com/" rel="external nofollow" class="url">Aakash</a></cite>
+
+                    <a class="comment-link" href="#comment-90745">
+                        <time pubdate="1548268554">January 23, 2019 at 8:35 pm</time>
+                    </a>
+
+                                        
+                </footer>
+
+                <div class="comment-content">
+                    <p>Hello friends , i have a problem . I have laravel
+ application developed on a module based everything here are separate 
+inside a module folder with their own controllers and routes and 
+everything . Inside a diary module i want to install google client 
+library i downloaded the package and  put it in a vendor folder their. I
+ want to require it in my diarycontroller how can i do that ? i used 
+require function but it is not working</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-90745">
+                    <a rel="nofollow" class="comment-reply-link" href="#comment-90745" onclick='return addComment.moveForm( "comment-90745", "90745", "respond", "142" )' aria-label="Reply to Aakash">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+                </ol>
+                <div class="comment-pagination">
+                                                        </div>
+
+            	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">LEAVE A REPLY <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://laraveldaily.com/how-to-use-external-classes-and-php-files-in-laravel-controller/#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="https://laraveldaily.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+				<div class="clearfix"></div>
+				<div class="comment-form-input-wrap td-form-comment">
+					<textarea placeholder="Comment:" id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+					<div class="td-warning-comment">Please enter your comment!</div>
+				</div>
+		        <div class="comment-form-input-wrap td-form-author">
+			            <input class="" id="author" name="author" placeholder="Name:*" type="text" size="30" aria-required="true">
+			            <div class="td-warning-author">Please enter your name here</div>
+			         </div>
+<div class="comment-form-input-wrap td-form-email">
+			            <input class="" id="email" name="email" placeholder="Email:*" type="text" size="30" aria-required="true">
+			            <div class="td-warning-email-error">You have entered an incorrect email address!</div>
+			            <div class="td-warning-email">Please enter your email address here</div>
+			         </div>
+<div class="comment-form-input-wrap td-form-url">
+			            <input class="" id="url" name="url" placeholder="Website:" type="text" size="30">
+                     </div>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"><label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<div class="comment-sub-ops" data-auto="position">
+
+    <label for="comment-mail-sub-type" class="cso-sub-type">
+        <span class="cso-icon"><svg style="width:1em; height:1em; vertical-align:middle;" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<g fill="currentColor" fill-rule="evenodd">
+		<path d="M14.1,5.63571636 C14.9517714,6.33967604 15.450459,7.19287046 15.450459,8.11238878 C15.450459,9.00675525 14.9786798,9.83837654 14.1691007,10.5309611 L15.9373937,14.0087185 L12.3204301,12.0078104 C11.9296094,13.5858368 9.54844584,14.7997638 6.66936474,14.7997638 C5.53232152,14.7997638 4.47293941,14.6104254 3.58314938,14.2840966 L3.58314938,14.2840966 L0.600000024,15.934378 L1.91489821,13.3483263 C1.31289726,12.8333222 0.962083376,12.2149306 0.962083376,11.549882 C0.962083376,11.165606 1.07921023,10.7969075 1.29424428,10.4547307 L1.29424428,10.4547307 C0.538036753,9.77771086 0.100000001,8.97417858 0.100000001,8.11238878 C0.100000001,7.04123575 0.776722924,6.06008476 1.89999998,5.30000019 L1.89999998,7.0658888 C1.89999998,7.30870143 2.09163284,7.50553995 2.34867325,7.50553995 L13.6513267,7.50553995 C13.8991221,7.50553995 14.1,7.31362877 14.1,7.0658888 L14.1,5.63571636 L14.1,5.63571636 Z M1.91455086,10.9345943 C1.80464172,11.1556337 1.74596704,11.3882813 1.74596704,11.6284523 C1.74596704,12.1628789 2.03649339,12.660053 2.53556999,13.0749705 L1.89355472,14.5590821 L3.60073421,13.7061116 L3.60073421,13.7061116 C4.4110062,14.0513606 5.42865146,14.2569046 6.53374306,14.2569046 C8.94591699,14.2569046 10.9414496,13.2775827 11.2731076,12.0036603 C10.2241563,12.3100096 9.03514487,12.482874 7.77522952,12.482874 C5.42553187,12.482874 3.3224447,11.8816356 1.91455086,10.9345943 L1.91455086,10.9345943 Z M3.03674893,0 C2.79553911,0 2.5999999,0.198275445 2.5999999,0.450938832 L2.5999999,6.42178844 C2.5999999,6.67083508 2.80610042,6.87272727 3.03674893,6.87272727 L12.9632509,6.87272727 C13.2044607,6.87272727 13.3999999,6.67445183 13.3999999,6.42178844 L13.3999999,0.450938832 C13.3999999,0.201892192 13.1938994,0 12.9632509,0 L3.03674893,0 Z M7.99999989,4.5999999 L12.5,0.600000013 L11.5625,0.600000013 L7.99999989,2.78181813 L4.43749976,0.600000013 L3.5,0.599999905 L7.99999989,4.5999999 Z"></path>
+	</g>
+</svg></span> Receive Email Notifications?
+    </label>
+
+        <select id="comment-mail-sub-type" name="comment_mail_sub_type" class="cso-sub-type form-control" title="Receive Notifications?">
+        <option value="">no, do not subscribe</option>
+        <option value="comment" selected="selected">yes, replies to my comment</option>
+        <option value="comments">yes, all comments/replies</option>
+    </select>
+     <select id="comment-mail-sub-deliver" name="comment_mail_sub_deliver" class="cso-sub-deliver form-control" title="Notify Me">
+        <option value="asap" selected="selected">instantly</option>
+        <option value="hourly">hourly digest</option>
+        <option value="daily">daily digest</option>
+        <option value="weekly">weekly digest</option>
+    </select>
+
+
+    <div class="cso-links">
+        <span class="cso-link-new">Or, you can <a href="https://laraveldaily.com/?comment_mail%5Bmanage%5D%5Bsub_new%5D=0&amp;comment_mail%5Bmanage%5D%5Bsub_form%5D%5Bpost_id%5D=142" rel="nofollow">subscribe without commenting</a>.</span>
+            </div>
+
+        
+
+</div>
+
+    <style type="text/css">
+        .comment-sub-ops
+        {
+            margin : 1em 0 1em 0;
+        }
+        .comment-sub-ops label
+        {
+            display : block;
+        }
+        .comment-sub-ops select
+        {
+            box-sizing : border-box;
+            display    : inline-block;
+        }
+        .comment-sub-ops select.cso-sub-type
+        {
+            width : 70%;
+            float : left;
+        }
+        .comment-sub-ops select.cso-sub-deliver
+        {
+            width : 28%;
+            float : right;
+        }
+        .comment-sub-ops select.cso-sub-deliver[disabled]
+        {
+            opacity : 0.3;
+        }
+        .comment-sub-ops .cso-links
+        {
+            font-size   : 80%;
+            line-height : 1.5em;
+            margin      : 0 0 0 .5em;
+            clear       : both;
+        }
+        .comment-sub-ops .cso-links .cso-link-summary
+        {
+            display     : block;
+            line-height : 1em;
+        }
+        .comment-sub-ops .cso-sub-list
+        {
+            margin: 1em 0 0 0;
+        }
+        .comment-sub-ops .cso-sub-list label
+        {
+            cursor: pointer;
+        }
+    </style><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="142" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="edc8abbe8c"></p><p style="display: none;"></p>			<input type="hidden" id="ak_js" name="ak_js" value="1597955618374"></form>
+			</div><!-- #respond -->
+	    </div> <!-- /.content -->
+                            <div class="clearfix"></div></div>
+                        </div>
+                        <div class="td-pb-span4 td-main-sidebar" role="complementary">
+                            <div class="td-ss-main-sidebar" style="width: 324px; position: static; top: auto; bottom: auto; z-index: 1;"><div class="clearfix"></div>
+                                <div class="td-a-rec td-a-rec-id-custom_ad_1  td_uid_3_5f3eddd690286_rand td_block_template_1"><div class="td-all-devices">
+<a href="https://laraveldaily.teachable.com/?utm_source=laraveldaily&amp;utm_campaign=sidebar_banner" target="_blank"><img src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/online-courses.png"></a></div></div><div class="td_block_wrap td_block_social_counter td_block_widget td_uid_4_5f3eddd690440_rand td-social-style4 td-social-colored td-pb-border-top td_block_template_1"><div class="td-block-title-wrap"><h4 class="block-title td-block-title"><span class="td-pulldown-size">STAY CONNECTED</span></h4></div><div class="td-social-list"><div class="td_social_type td-pb-margin-side td_social_facebook"><div class="td-social-box"><div class="td-sp td-sp-facebook"></div><span class="td_social_info">2,182</span><span class="td_social_info td_social_info_name">Fans</span><span class="td_social_button"><a href="https://www.facebook.com/LaravelDaily">Like</a></span></div></div><div class="td_social_type td-pb-margin-side td_social_twitter"><div class="td-social-box"><div class="td-sp td-sp-twitter"></div><span class="td_social_info">12,944</span><span class="td_social_info td_social_info_name">Followers</span><span class="td_social_button"><a href="https://twitter.com/DailyLaravel">Follow</a></span></div></div><div class="td_social_type td-pb-margin-side td_social_youtube"><div class="td-social-box"><div class="td-sp td-sp-youtube"></div><span class="td_social_info">11,800</span><span class="td_social_info td_social_info_name">Subscribers</span><span class="td_social_button"><a href="https://www.youtube.com/channel/UCTuplgOBi6tJIlesIboymGA">Subscribe</a></span></div></div></div></div> <!-- ./block --><div class="td-a-rec td-a-rec-id-custom_ad_2  td_uid_5_5f3eddd6906b1_rand td_block_template_1"><div class="td-all-devices"><a href="https://quickadminpanel.com/?utm_source=laraveldaily&amp;utm_campaign=sidebar_banner" target="_blank"><img src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/quick-admin-panel-1.png"></a></div></div><div class="td_block_wrap td_block_15 td_block_widget td_uid_6_5f3eddd6908b0_rand td-pb-border-top td_block_template_1 td-column-1 td_block_padding" data-td-block-uid="td_uid_6_5f3eddd6908b0">
+<style>
+.td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-pulldown-filter-link:hover,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-subcat-item a:hover,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-subcat-item .td-cur-simple-item {
+                color: #dd9933;
+            }
+
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .block-title > *,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-subcat-dropdown:hover .td-subcat-more {
+                background-color: #dd9933;
+            }
+            .td-theme-wrap .td-footer-wrapper .td_uid_6_5f3eddd6908b0_rand .block-title > * {
+                padding: 6px 7px 5px;
+                line-height: 1;
+            }
+
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .block-title {
+                border-color: #dd9933;
+            }
+
+            
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td_module_wrap:hover .entry-title a,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td_quote_on_blocks,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-opacity-cat .td-post-category:hover,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-opacity-read .td-read-more a:hover,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-opacity-author .td-post-author-name a:hover,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-instagram-user a {
+                color: #dd9933;
+            }
+
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-next-prev-wrap a:hover,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-load-more-wrap a:hover {
+                background-color: #dd9933;
+                border-color: #dd9933;
+            }
+
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-read-more a,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-weather-information:before,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-weather-week:before,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-exchange-header:before,
+            .td-theme-wrap .td-footer-wrapper .td_uid_6_5f3eddd6908b0_rand .td-post-category,
+            .td-theme-wrap .td_uid_6_5f3eddd6908b0_rand .td-post-category:hover {
+                background-color: #dd9933;
+            }
+</style><script>var block_td_uid_6_5f3eddd6908b0 = new tdBlock();
+block_td_uid_6_5f3eddd6908b0.id = "td_uid_6_5f3eddd6908b0";
+block_td_uid_6_5f3eddd6908b0.atts = '{"custom_title":"NEWEST VIDEOS","custom_url":"","block_template_id":"","header_color":"#dd9933","header_text_color":"#","accent_text_color":"#","mx4_tl":"","limit":"4","offset":"","el_class":"","post_ids":"","category_id":"","category_ids":"","tag_slug":"video","autors_id":"","installed_post_types":"","sort":"","td_ajax_filter_type":"","td_ajax_filter_ids":"","td_filter_default_txt":"All","td_ajax_preloading":"","ajax_pagination":"","ajax_pagination_infinite_stop":"","class":"td_block_widget td_uid_6_5f3eddd6908b0_rand","separator":"","f_header_font_header":"","f_header_font_title":"Block header","f_header_font_settings":"","f_header_font_family":"","f_header_font_size":"","f_header_font_line_height":"","f_header_font_style":"","f_header_font_weight":"","f_header_font_transform":"","f_header_font_spacing":"","f_header_":"","f_ajax_font_title":"Ajax categories","f_ajax_font_settings":"","f_ajax_font_family":"","f_ajax_font_size":"","f_ajax_font_line_height":"","f_ajax_font_style":"","f_ajax_font_weight":"","f_ajax_font_transform":"","f_ajax_font_spacing":"","f_ajax_":"","f_more_font_title":"Load more button","f_more_font_settings":"","f_more_font_family":"","f_more_font_size":"","f_more_font_line_height":"","f_more_font_style":"","f_more_font_weight":"","f_more_font_transform":"","f_more_font_spacing":"","f_more_":"","mx4f_title_font_header":"","mx4f_title_font_title":"Article title","mx4f_title_font_settings":"","mx4f_title_font_family":"","mx4f_title_font_size":"","mx4f_title_font_line_height":"","mx4f_title_font_style":"","mx4f_title_font_weight":"","mx4f_title_font_transform":"","mx4f_title_font_spacing":"","mx4f_title_":"","mx4f_cat_font_title":"Article category tag","mx4f_cat_font_settings":"","mx4f_cat_font_family":"","mx4f_cat_font_size":"","mx4f_cat_font_line_height":"","mx4f_cat_font_style":"","mx4f_cat_font_weight":"","mx4f_cat_font_transform":"","mx4f_cat_font_spacing":"","mx4f_cat_":"","css":"","tdc_css":"","td_column_number":1,"color_preset":"","border_top":"","tdc_css_class":"td_uid_6_5f3eddd6908b0_rand","tdc_css_class_style":"td_uid_6_5f3eddd6908b0_rand_style"}';
+block_td_uid_6_5f3eddd6908b0.td_column_number = "1";
+block_td_uid_6_5f3eddd6908b0.block_type = "td_block_15";
+block_td_uid_6_5f3eddd6908b0.post_count = "4";
+block_td_uid_6_5f3eddd6908b0.found_posts = "22";
+block_td_uid_6_5f3eddd6908b0.header_color = "#dd9933";
+block_td_uid_6_5f3eddd6908b0.ajax_pagination_infinite_stop = "";
+block_td_uid_6_5f3eddd6908b0.max_num_pages = "6";
+tdBlocksArray.push(block_td_uid_6_5f3eddd6908b0);
+</script><div class="td-block-title-wrap"><h4 class="block-title td-block-title"><span class="td-pulldown-size">NEWEST VIDEOS</span></h4></div><div id="td_uid_6_5f3eddd6908b0" class="td_block_inner td-column-1"><div class="td-cust-row">
+
+	<div class="td-block-span12">
+
+        <div class="td_module_mx4 td_module_wrap td-animation-stack">
+            <div class="td-module-image">
+                <div class="td-module-thumb"><a href="https://laraveldaily.com/top-5-all-time-must-watch-videos-from-laracon/" rel="bookmark" class="td-image-wrap" title="Top 5 All-Time Must-Watch Videos from Laracon"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/top-5-laracon-videos-218x150.png" alt="" title="Top 5 All-Time Must-Watch Videos from Laracon" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/uploads/2019/03/top-5-laracon-videos-218x150.png" width="218" height="150"></a></div>                            </div>
+
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/top-5-all-time-must-watch-videos-from-laracon/" rel="bookmark" title="Top 5 All-Time Must-Watch Videos from Laracon">Top 5 All-Time Must-Watch Videos from Laracon</a></h3>
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 -->
+
+	<div class="td-block-span12">
+
+        <div class="td_module_mx4 td_module_wrap td-animation-stack">
+            <div class="td-module-image">
+                <div class="td-module-thumb"><a href="https://laraveldaily.com/how-much-i-earn-from-this-laraveldaily-blog-all-numbers/" rel="bookmark" class="td-image-wrap" title="How Much I Earn From This LaravelDaily Blog [ALL NUMBERS]"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/laraveldaily-revenue-218x150.png" alt="" title="How Much I Earn From This LaravelDaily Blog [ALL NUMBERS]" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/uploads/2019/02/laraveldaily-revenue-218x150.png" width="218" height="150"></a></div>                            </div>
+
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/how-much-i-earn-from-this-laraveldaily-blog-all-numbers/" rel="bookmark" title="How Much I Earn From This LaravelDaily Blog [ALL NUMBERS]">How Much I Earn From This LaravelDaily Blog [ALL NUMBERS]</a></h3>
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 --></div><div class="td-cust-row">
+
+	<div class="td-block-span12">
+
+        <div class="td_module_mx4 td_module_wrap td-animation-stack">
+            <div class="td-module-image">
+                <div class="td-module-thumb"><a href="https://laraveldaily.com/laravel-wink-package-wordpress-mini-alternative-for-laravel/" rel="bookmark" class="td-image-wrap" title="Laravel Wink Package: WordPress Mini-Alternative for Laravel?"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/Untitled-Design-2-218x150.jpg" alt="" title="Laravel Wink Package: WordPress Mini-Alternative for Laravel?" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/uploads/2018/12/Untitled-Design-2-218x150.jpg" width="218" height="150"></a></div>                            </div>
+
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/laravel-wink-package-wordpress-mini-alternative-for-laravel/" rel="bookmark" title="Laravel Wink Package: WordPress Mini-Alternative for Laravel?">Laravel Wink Package: WordPress Mini-Alternative for Laravel?</a></h3>
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 -->
+
+	<div class="td-block-span12">
+
+        <div class="td_module_mx4 td_module_wrap td-animation-stack">
+            <div class="td-module-image">
+                <div class="td-module-thumb"><a href="https://laraveldaily.com/eloquentfilter-package-review-process-get-query-without-if-statements/" rel="bookmark" class="td-image-wrap" title="EloquentFilter Package Review: Process GET Query Without IF Statements"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/Untitled-Design-2-218x150.jpg" alt="" title="EloquentFilter Package Review: Process GET Query Without IF Statements" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/uploads/2018/12/Untitled-Design-2-218x150.jpg" width="218" height="150"></a></div>                            </div>
+
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/eloquentfilter-package-review-process-get-query-without-if-statements/" rel="bookmark" title="EloquentFilter Package Review: Process GET Query Without IF Statements">EloquentFilter Package Review: Process GET Query Without IF Statements</a></h3>
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 --></div></div></div> <!-- ./block --><div class="clearfix"></div><div class="td_block_wrap td_block_7 td_block_widget td_uid_7_5f3eddd692f88_rand td-pb-border-top td_block_template_1 td-column-1 td_block_padding" data-td-block-uid="td_uid_7_5f3eddd692f88"><script>var block_td_uid_7_5f3eddd692f88 = new tdBlock();
+block_td_uid_7_5f3eddd692f88.id = "td_uid_7_5f3eddd692f88";
+block_td_uid_7_5f3eddd692f88.atts = '{"custom_title":"RANDOM ARTICLES","custom_url":"","block_template_id":"","header_color":"#","header_text_color":"#","accent_text_color":"#","m6_tl":"","limit":"8","offset":"","el_class":"","post_ids":"","category_id":"","category_ids":"","tag_slug":"","autors_id":"","installed_post_types":"","sort":"random_posts","td_ajax_filter_type":"","td_ajax_filter_ids":"","td_filter_default_txt":"All","td_ajax_preloading":"","ajax_pagination":"","ajax_pagination_infinite_stop":"","class":"td_block_widget td_uid_7_5f3eddd692f88_rand","separator":"","f_header_font_header":"","f_header_font_title":"Block header","f_header_font_settings":"","f_header_font_family":"","f_header_font_size":"","f_header_font_line_height":"","f_header_font_style":"","f_header_font_weight":"","f_header_font_transform":"","f_header_font_spacing":"","f_header_":"","f_ajax_font_title":"Ajax categories","f_ajax_font_settings":"","f_ajax_font_family":"","f_ajax_font_size":"","f_ajax_font_line_height":"","f_ajax_font_style":"","f_ajax_font_weight":"","f_ajax_font_transform":"","f_ajax_font_spacing":"","f_ajax_":"","f_more_font_title":"Load more button","f_more_font_settings":"","f_more_font_family":"","f_more_font_size":"","f_more_font_line_height":"","f_more_font_style":"","f_more_font_weight":"","f_more_font_transform":"","f_more_font_spacing":"","f_more_":"","m6f_title_font_header":"","m6f_title_font_title":"Article title","m6f_title_font_settings":"","m6f_title_font_family":"","m6f_title_font_size":"","m6f_title_font_line_height":"","m6f_title_font_style":"","m6f_title_font_weight":"","m6f_title_font_transform":"","m6f_title_font_spacing":"","m6f_title_":"","m6f_cat_font_title":"Article category tag","m6f_cat_font_settings":"","m6f_cat_font_family":"","m6f_cat_font_size":"","m6f_cat_font_line_height":"","m6f_cat_font_style":"","m6f_cat_font_weight":"","m6f_cat_font_transform":"","m6f_cat_font_spacing":"","m6f_cat_":"","m6f_meta_font_title":"Article meta info","m6f_meta_font_settings":"","m6f_meta_font_family":"","m6f_meta_font_size":"","m6f_meta_font_line_height":"","m6f_meta_font_style":"","m6f_meta_font_weight":"","m6f_meta_font_transform":"","m6f_meta_font_spacing":"","m6f_meta_":"","css":"","tdc_css":"","td_column_number":1,"color_preset":"","border_top":"","tdc_css_class":"td_uid_7_5f3eddd692f88_rand","tdc_css_class_style":"td_uid_7_5f3eddd692f88_rand_style"}';
+block_td_uid_7_5f3eddd692f88.td_column_number = "1";
+block_td_uid_7_5f3eddd692f88.block_type = "td_block_7";
+block_td_uid_7_5f3eddd692f88.post_count = "8";
+block_td_uid_7_5f3eddd692f88.found_posts = "312";
+block_td_uid_7_5f3eddd692f88.header_color = "#";
+block_td_uid_7_5f3eddd692f88.ajax_pagination_infinite_stop = "";
+block_td_uid_7_5f3eddd692f88.max_num_pages = "39";
+tdBlocksArray.push(block_td_uid_7_5f3eddd692f88);
+</script><div class="td-block-title-wrap"><h4 class="block-title td-block-title"><span class="td-pulldown-size">RANDOM ARTICLES</span></h4></div><div id="td_uid_7_5f3eddd692f88" class="td_block_inner">
+
+	<div class="td-block-span12">
+
+        <div class="td_module_6 td_module_wrap td-animation-stack">
+
+        <div class="td-module-thumb"><a href="https://laraveldaily.com/be-careful-with-findorfail-method/" rel="bookmark" class="td-image-wrap" title="Be Careful with findOrFail() Method"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/Untitled-Design-2-100x70.jpg" alt="" title="Be Careful with findOrFail() Method" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/uploads/2018/12/Untitled-Design-2-100x70.jpg" width="100" height="70"></a></div>
+        <div class="item-details">
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/be-careful-with-findorfail-method/" rel="bookmark" title="Be Careful with findOrFail() Method">Be Careful with findOrFail() Method</a></h3>            <div class="td-module-meta-info">
+                                                <span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2019-01-25T15:46:53+00:00">January 25, 2019</time></span>                            </div>
+        </div>
+
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 -->
+
+	<div class="td-block-span12">
+
+        <div class="td_module_6 td_module_wrap td-animation-stack">
+
+        <div class="td-module-thumb"><a href="https://laraveldaily.com/bruno-skvorc-work-sitepoint-laravel-popularity-freelancing/" rel="bookmark" class="td-image-wrap" title="Bruno Škvorc: work at SitePoint, Laravel’s popularity and Freelancing"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/td_100x70.png" alt="" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/themes/Newspaper/images/no-thumb/td_100x70.png" width="100" height="70"></a></div>
+        <div class="item-details">
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/bruno-skvorc-work-sitepoint-laravel-popularity-freelancing/" rel="bookmark" title="Bruno Škvorc: work at SitePoint, Laravel’s popularity and Freelancing">Bruno Škvorc: work at SitePoint, Laravel’s popularity and Freelancing</a></h3>            <div class="td-module-meta-info">
+                                                <span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2016-09-07T16:14:50+00:00">September 7, 2016</time></span>                            </div>
+        </div>
+
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 -->
+
+	<div class="td-block-span12">
+
+        <div class="td_module_6 td_module_wrap td-animation-stack">
+
+        <div class="td-module-thumb"><a href="https://laraveldaily.com/thoughts-feelings-laracon-eu-2016/" rel="bookmark" class="td-image-wrap" title="Thoughts and feelings after Laracon EU 2016"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/td_100x70.png" alt="" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/themes/Newspaper/images/no-thumb/td_100x70.png" width="100" height="70"></a></div>
+        <div class="item-details">
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/thoughts-feelings-laracon-eu-2016/" rel="bookmark" title="Thoughts and feelings after Laracon EU 2016">Thoughts and feelings after Laracon EU 2016</a></h3>            <div class="td-module-meta-info">
+                                                <span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2016-08-25T07:42:51+00:00">August 25, 2016</time></span>                            </div>
+        </div>
+
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 -->
+
+	<div class="td-block-span12">
+
+        <div class="td_module_6 td_module_wrap td-animation-stack">
+
+        <div class="td-module-thumb"><a href="https://laraveldaily.com/pyrocms-another-new-laravel-based-system/" rel="bookmark" class="td-image-wrap" title="PyroCMS 3: another (new!) Laravel-based system"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/td_100x70.png" alt="" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/themes/Newspaper/images/no-thumb/td_100x70.png" width="100" height="70"></a></div>
+        <div class="item-details">
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/pyrocms-another-new-laravel-based-system/" rel="bookmark" title="PyroCMS 3: another (new!) Laravel-based system">PyroCMS 3: another (new!) Laravel-based system</a></h3>            <div class="td-module-meta-info">
+                                                <span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2016-08-16T16:25:26+00:00">August 16, 2016</time></span>                            </div>
+        </div>
+
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 -->
+
+	<div class="td-block-span12">
+
+        <div class="td_module_6 td_module_wrap td-animation-stack">
+
+        <div class="td-module-thumb"><a href="https://laraveldaily.com/webdevbusiness-my-new-blog-about-the-business-of-web-development/" rel="bookmark" class="td-image-wrap" title="WebDevBusiness – my new blog and podcast about the Business of web-development"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/td_100x70.png" alt="" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/themes/Newspaper/images/no-thumb/td_100x70.png" width="100" height="70"></a></div>
+        <div class="item-details">
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/webdevbusiness-my-new-blog-about-the-business-of-web-development/" rel="bookmark" title="WebDevBusiness – my new blog and podcast about the Business of web-development">WebDevBusiness – my new blog and podcast about the Business of...</a></h3>            <div class="td-module-meta-info">
+                                                <span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2016-03-25T07:24:47+00:00">March 25, 2016</time></span>                            </div>
+        </div>
+
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 -->
+
+	<div class="td-block-span12">
+
+        <div class="td_module_6 td_module_wrap td-animation-stack">
+
+        <div class="td-module-thumb"><a href="https://laraveldaily.com/migration-index-too-long-choose-the-name-yourself/" rel="bookmark" class="td-image-wrap" title="Migration index too long? Choose the name yourself!"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/td_100x70.png" alt="" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/themes/Newspaper/images/no-thumb/td_100x70.png" width="100" height="70"></a></div>
+        <div class="item-details">
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/migration-index-too-long-choose-the-name-yourself/" rel="bookmark" title="Migration index too long? Choose the name yourself!">Migration index too long? Choose the name yourself!</a></h3>            <div class="td-module-meta-info">
+                                                <span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2015-12-29T07:33:11+00:00">December 29, 2015</time></span>                            </div>
+        </div>
+
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 -->
+
+	<div class="td-block-span12">
+
+        <div class="td_module_6 td_module_wrap td-animation-stack">
+
+        <div class="td-module-thumb"><a href="https://laraveldaily.com/laracon-us-2015-recap-main-takeaways/" rel="bookmark" class="td-image-wrap" title="Laracon US 2015 Recap – main takeaways"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/td_100x70.png" alt="" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/themes/Newspaper/images/no-thumb/td_100x70.png" width="100" height="70"></a></div>
+        <div class="item-details">
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/laracon-us-2015-recap-main-takeaways/" rel="bookmark" title="Laracon US 2015 Recap – main takeaways">Laracon US 2015 Recap – main takeaways</a></h3>            <div class="td-module-meta-info">
+                                                <span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2015-08-13T13:53:48+00:00">August 13, 2015</time></span>                            </div>
+        </div>
+
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 -->
+
+	<div class="td-block-span12">
+
+        <div class="td_module_6 td_module_wrap td-animation-stack">
+
+        <div class="td-module-thumb"><a href="https://laraveldaily.com/building-a-laravel-form-without-illuminatehtml/" rel="bookmark" class="td-image-wrap" title="Building a Laravel form without Illuminate/html"><img class="entry-thumb td-animation-stack-type0-2" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/td_100x70.png" alt="" data-type="image_tag" data-img-url="https://laraveldaily.com/wp-content/themes/Newspaper/images/no-thumb/td_100x70.png" width="100" height="70"></a></div>
+        <div class="item-details">
+            <h3 class="entry-title td-module-title"><a href="https://laraveldaily.com/building-a-laravel-form-without-illuminatehtml/" rel="bookmark" title="Building a Laravel form without Illuminate/html">Building a Laravel form without Illuminate/html</a></h3>            <div class="td-module-meta-info">
+                                                <span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2015-10-29T05:58:25+00:00">October 29, 2015</time></span>                            </div>
+        </div>
+
+        </div>
+
+        
+	</div> <!-- ./td-block-span12 --></div></div> <!-- ./block -->                            <div class="clearfix"></div></div>
+                        </div>
+                            </div> <!-- /.td-pb-row -->
+    </div> <!-- /.td-container -->
+</div> <!-- /.td-main-content-wrap -->
+
+<!-- Instagram -->
+
+
+
+
+	<!-- Footer -->
+	<div class="td-footer-wrapper td-container-wrap td-footer-template-13 ">
+    <div class="td-container">
+        <div class="td-pb-row">
+            <div class="td-pb-span12">
+                
+                <div class="footer-social-wrap td-social-style-2">
+                    
+            <span class="td-social-icon-wrap">
+                <a target="_blank" href="https://www.facebook.com/laraveldaily/" title="Facebook">
+                    <i class="td-icon-font td-icon-facebook"></i>
+                    <span class="td-social-name">Facebook</span>
+                </a>
+            </span>
+            <span class="td-social-icon-wrap">
+                <a target="_blank" href="https://twitter.com/dailylaravel" title="Twitter">
+                    <i class="td-icon-font td-icon-twitter"></i>
+                    <span class="td-social-name">Twitter</span>
+                </a>
+            </span>
+            <span class="td-social-icon-wrap">
+                <a target="_blank" href="https://www.youtube.com/channel/UCTuplgOBi6tJIlesIboymGA" title="Youtube">
+                    <i class="td-icon-font td-icon-youtube"></i>
+                    <span class="td-social-name">Youtube</span>
+                </a>
+            </span>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	<!-- Sub Footer -->
+	
+
+</div><!--close td-outer-wrap-->
+
+
+
+    <!--
+
+        Theme: Newspaper by tagDiv.com 2017
+        Version: 9.2 (rara)
+        Deploy mode: deploy
+        
+        uid: 5f3eddd6951c0
+    -->
+
+    
+<!-- Custom css from theme panel -->
+<style type="text/css" media="screen">
+/* custom css theme panel */
+.td-post-content img {
+    border: 1px solid #ccc;
+}
+
+.td-post-content a {
+    text-decoration: underline;
+}
+
+code {
+    padding: 2px 0 !important;
+    font-size: 16px;
+}
+</style>
+
+<script type="text/javascript" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/tagdiv_theme.js"></script>
+<script type="text/javascript" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/comment-reply.js"></script>
+<script type="text/javascript" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/wp-embed.js"></script>
+<script async="async" type="text/javascript" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/form.js"></script>
+
+<!-- JS generated by theme -->
+
+<script>
+    
+
+	
+
+		(function(){
+			var html_jquery_obj = jQuery('html');
+
+			if (html_jquery_obj.length && (html_jquery_obj.is('.ie8') || html_jquery_obj.is('.ie9'))) {
+
+				var path = 'https://laraveldaily.com/wp-content/themes/Newspaper/style.css';
+
+				jQuery.get(path, function(data) {
+
+					var str_split_separator = '#td_css_split_separator';
+					var arr_splits = data.split(str_split_separator);
+					var arr_length = arr_splits.length;
+
+					if (arr_length > 1) {
+
+						var dir_path = 'https://laraveldaily.com/wp-content/themes/Newspaper';
+						var splited_css = '';
+
+						for (var i = 0; i < arr_length; i++) {
+							if (i > 0) {
+								arr_splits[i] = str_split_separator + ' ' + arr_splits[i];
+							}
+							//jQuery('head').append('<style>' + arr_splits[i] + '</style>');
+
+							var formated_str = arr_splits[i].replace(/\surl\(\'(?!data\:)/gi, function regex_function(str) {
+								return ' url(\'' + dir_path + '/' + str.replace(/url\(\'/gi, '').replace(/^\s+|\s+$/gm,'');
+							});
+
+							splited_css += "<style>" + formated_str + "</style>";
+						}
+
+						var td_theme_css = jQuery('link#td-theme-css');
+
+						if (td_theme_css.length) {
+							td_theme_css.after(splited_css);
+						}
+					}
+				});
+			}
+		})();
+
+	
+	
+</script>
+
+
+
+			<div id="tdw-css-writer" style="display: none" class="tdw-drag-dialog tdc-window-sidebar">
+				<header>
+
+				
+					<a title="Editor" class="tdw-tab tdc-tab-active" href="#" data-tab-content="tdw-tab-editor">Edit with Live CSS</a>
+					<div class="tdw-less-info" title="This will be red when errors are detected in your CSS and LESS"></div>
+				
+				</header>
+				<div class="tdw-content">
+
+					
+					<div class="tdw-tabs-content tdw-tab-editor tdc-tab-content-active">
+
+
+						<script>
+
+							(function(jQuery, undefined) {
+
+								jQuery(window).ready(function() {
+
+									if ( 'undefined' !== typeof tdcAdminIFrameUI ) {
+										var $liveIframe  = tdcAdminIFrameUI.getLiveIframe();
+
+										if ( $liveIframe.length ) {
+											$liveIframe.load(function() {
+												$liveIframe.contents().find( 'body').append( '<textarea class="tdw-css-writer-editor" style="display: none"></textarea>' );
+											});
+										}
+									}
+
+								});
+
+							})(jQuery);
+
+						</script>
+
+
+						<textarea class="tdw-css-writer-editor td_live_css_uid_1_5f3eddd69534a"></textarea>
+						<div id="td_live_css_uid_1_5f3eddd69534a" class="td-code-editor"></div>
+
+
+						<script>
+							jQuery(window).load(function (){
+
+								if ( 'undefined' !== typeof tdLiveCssInject ) {
+
+									tdLiveCssInject.init();
+
+
+									var editor_textarea = jQuery('.td_live_css_uid_1_5f3eddd69534a');
+									var languageTools = ace.require("ace/ext/language_tools");
+									var tdcCompleter = {
+										getCompletions: function (editor, session, pos, prefix, callback) {
+											if (prefix.length === 0) {
+												callback(null, []);
+												return
+											}
+
+											if ('undefined' !== typeof tdcAdminIFrameUI) {
+
+												var data = {
+													error: undefined,
+													getShortcode: ''
+												};
+
+												tdcIFrameData.getShortcodeFromData(data);
+
+												if (!_.isUndefined(data.error)) {
+													tdcDebug.log(data.error);
+												}
+
+												if (!_.isUndefined(data.getShortcode)) {
+
+													var regex = /el_class=\"([A-Za-z0-9_-]*\s*)+\"/g,
+														results = data.getShortcode.match(regex);
+
+													var elClasses = {};
+
+													for (var i = 0; i < results.length; i++) {
+														var currentClasses = results[i]
+															.replace('el_class="', '')
+															.replace('"', '')
+															.split(' ');
+
+														for (var j = 0; j < currentClasses.length; j++) {
+															if (_.isUndefined(elClasses[currentClasses[j]])) {
+																elClasses[currentClasses[j]] = '';
+															}
+														}
+													}
+
+													var arrElClasses = [];
+
+													for (var prop in elClasses) {
+														arrElClasses.push(prop);
+													}
+
+													callback(null, arrElClasses.map(function (item) {
+														return {
+															name: item,
+															value: item,
+															meta: 'in_page'
+														}
+													}));
+												}
+											}
+										}
+									};
+									languageTools.addCompleter(tdcCompleter);
+
+									window.editor = ace.edit("td_live_css_uid_1_5f3eddd69534a");
+                                    window.editor.$blockScrolling = Infinity;
+
+                                    // 'change' handler is written as function because it's called by tdc_on_add_css_live_components (of wp_footer hook)
+									// We did it to reattach the existing compiled css to the new content received from server.
+									window.editorChangeHandler = function () {
+										//tdwState.lessWasEdited = true;
+
+										window.onbeforeunload = function () {
+											if (tdwState.lessWasEdited) {
+												return "You have attempted to leave this page. Are you sure?";
+											}
+											return false;
+										};
+
+										var editorValue = editor.getSession().getValue();
+
+										editor_textarea.val(editorValue);
+
+										if ('undefined' !== typeof tdcAdminIFrameUI) {
+											tdcAdminIFrameUI.getLiveIframe().contents().find('.tdw-css-writer-editor:first').val(editorValue);
+
+											// Mark the content as modified
+											// This is important for showing info when composer closes
+                                            tdcMain.setContentModified();
+										}
+
+										tdLiveCssInject.less();
+									};
+
+									editor.getSession().setValue(editor_textarea.val());
+									editor.getSession().on('change', editorChangeHandler);
+
+									editor.setTheme("ace/theme/textmate");
+									editor.setShowPrintMargin(false);
+									editor.getSession().setMode("ace/mode/less");
+                                    editor.getSession().setUseWrapMode(true);
+									editor.setOptions({
+										enableBasicAutocompletion: true,
+										enableSnippets: true,
+										enableLiveAutocompletion: false
+									});
+
+								}
+
+							});
+						</script>
+
+					</div>
+				</div>
+
+				<footer>
+
+					
+						<a href="#" class="tdw-save-css">Save</a>
+						<div class="tdw-more-info-text">Write CSS OR LESS and hit save. CTRL + SPACE for auto-complete.</div>
+
+					
+					<div class="tdw-resize"></div>
+				</footer>
+			</div>
+			<script type="text/javascript">
+    (function($) // Comment Mail™ subscr. options.
+    {
+        'use strict'; // Strict standards.
+
+        $(document).ready(
+            function() // On DOM ready handler.
+            {
+                var $subOps = $('.comment-sub-ops'),
+                    $subType, $subDeliver; // Initialize vars.
+
+                if($subOps.data('auto') === 'position') $subOps.prevUntil('form')
+                    .each(function(/* Auto-position subscription options. */)
+                          {
+                              var $this = $(this); // Cache this.
+                              if($this.find(':input[type="submit"]').length)
+                              {
+                                  $subOps.remove(), $this.before($subOps);
+                                  return false; // Break the each() loop.
+                              }
+                          });
+                $subOps = $('.comment-sub-ops'),
+                    $subType = $subOps.find('select.cso-sub-type'),
+                    $subDeliver = $subOps.find('select.cso-sub-deliver');
+
+                $subType.on('change', function()
+                {
+                    if($(this).val() === '')
+                        $subDeliver.attr('disabled', 'disabled');
+                    else $subDeliver.removeAttr('disabled');
+                })
+                    .trigger('change');
+            });
+    })(jQuery);
+</script>
+<script type="text/javascript" charset="utf-8" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/popup.js"></script><script type="text/javascript" src="How%20to%20use%20external%20classes%20and%20PHP%20files%20in%20Laravel%20Controller%20-%20Laravel%20Daily_files/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us11.list-manage.com","uuid":"a459401212599a54203d036ee","lid":"91c1337873","uniqueMethods":true}) })</script>
+
+
+<div id="PopupSignupForm_0" widgetid="PopupSignupForm_0">
+    <!-- MC BANNER -->
+    <div class="mc-banner" data-dojo-attach-point="bannerContainer" style="display: none;">
+        <div class="mc-layout__bannerContent">
+            <iframe src="about:blank" marginwidth="0" marginheight="0" scrolling="no" style="width: 100%; height: 0px;" data-dojo-attach-point="iframeBannerContainer" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <!-- MC MODAL -->
+    <div class="mc-modal" data-dojo-attach-point="modalContainer" style="display: none;">
+        <div class="mc-closeModal" data-action="close-mc-modal" data-dojo-attach-point="modalClose"></div>
+        <div class="mc-layout__modalContent" style="max-height: 0px;">
+            <iframe src="about:blank" marginwidth="0" marginheight="0" style="width: 100%; height: 0px;" data-dojo-attach-point="iframeModalContainer" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <!-- MC MODAL OVERLAY -->
+    <div class="mc-modal-bg" data-dojo-attach-point="modalOverlay" style="display: none;"></div>
+</div></body></html>
